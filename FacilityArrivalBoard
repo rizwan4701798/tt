@@ -1,0 +1,1313 @@
+@{
+    ViewBag.Title = "Facility Arrival Board";
+    Layout = "~/Views/Shared/_LayoutHospitalArrivalBoard.cshtml";
+}
+
+<div style="width: 100%">
+    <div style="float: left; min-width: 400px; margin-left: 1%; margin-right: 1%; width: 51%;">
+        @*<div class="container-heading" id="dvArrivalBoardHeading">Facility Arrival Board</div>*@
+        @*<div id="dvTotalLabel" class="grid-normal-column" style="float:right; font-weight:bold; line-height:40px;"></div>*@
+        @*<div class="right-alert-msg" id="dvAlertMessage"></div>*@
+        <div style="width: 100%">
+            <div id="gridheadingblue" class="logo-text" style="float: left; font-size: 16px; margin-top: 0px; font-weight: bold; line-height: 40px;">Arrivals Board</div>
+            <div id="dvTotalRecordsLabel" class="grid-normal-column" style="float: right; font-size: 16px; color: #00267c; margin-top: 0px; font-weight: bold; line-height: 40px;"></div>
+        </div>
+
+        <div class="grid-bg left">
+            <div id="gridheaderblue" class="grid-header-blue left">
+                <div style="width: 5%;" class="left">
+                    <div class="grid-header-column-large left">
+                    </div>
+                    <div class="grid-header-seperator right">
+                    </div>
+                </div>
+                <div style="width: 9%;" class="left">
+                    <div class="grid-header-column-large left">
+                        Ref No               
+                    </div>
+                    <div class="grid-header-seperator right" style='width: 0px;'>
+                    </div>
+                </div>
+                <div style="width: 38.5%;" class="left">
+                    <div class="grid-header-column-large left">
+                        Incident Type
+                    </div>
+                    <div class="grid-header-seperator right" style='width: 0px;'>
+                    </div>
+                </div>
+                <div style="width: 9%;" class="left">
+                    <div class="grid-header-column-large left">
+                        Age
+                    </div>
+                    <div class="grid-header-seperator right" style='width: 0px;'>
+                    </div>
+                </div>
+                <div style="width: 15%;" class="left">
+                    <div class="grid-header-column-large left">
+                        Unit
+                    </div>
+                    <div class="grid-header-seperator right" style='width: 0px;'>
+                    </div>
+                </div>
+                <div style="width: 15%;" class="left">
+                    <div class="grid-header-column-large left">
+                        Status
+                    </div>
+                    <div class="grid-header-seperator right" style='width: 0px;'>
+                    </div>
+                </div>
+                <div style="width: 3.5%;" class="left">
+                    <div class="grid-header-column-large left" style='width: 0px;'>
+                        ETA
+                    </div>
+                </div>
+              
+            </div>
+
+            <div id="dvGeneratedHTML" class="msg_list">
+            </div>
+        </div>
+
+        <div id="dvTotalLabel" class="grid-normal-column" style="float: right; width: 100%; text-align: center; font-size: 16px; color: #00267c; margin-top: 0px; font-weight: bold; line-height: 40px;"></div>
+
+
+        <div id="dvPaging" style="padding-bottom: 80px; display: none;">
+            <div style="width: 30%; float: left; margin-top: 3px;">
+                <div class="grid-normal-column left">Page No </div>
+                <div class="left" style="margin-left: 20px;">
+                    <select id="ddlPageNumber" class="dropdown_area" style="width: 100px;" onchange="LoadPagingData();"></select>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div style="float: left; min-width: 400px; margin-left: 1%; margin-right: 1%; width: 45%;">
+        @*<div class="container-heading" id="dvArrivalBoardHeading">Facility Arrival Board</div>*@
+        @*<div id="dvTotalLabel" class="grid-normal-column" style="float:right; font-weight:bold; line-height:40px;"></div>*@
+        @*<div class="right-alert-msg" id="dvAlertMessage"></div>*@
+        <div style="width: 100%">
+            <div id="gridheadinggreen" class="logo-text" style="float: left; font-size: 16px; margin-top: 0px; font-weight: bold; line-height: 40px;">Departures Board</div>
+
+            <div id="dvTotalRecordsLabelO" class="grid-normal-column" style="float: right; font-size: 16px; color: #00267c; margin-top: 0px; font-weight: bold; line-height: 40px;"></div>
+        </div>
+
+        <div class="grid-bg left">
+            <div id="gridheadergreen" class="grid-header-green left">
+                <div style="width: 6%;" class="left">
+                    <div class="grid-header-column-large left">
+                    </div>
+                    <div class="grid-header-seperator right">
+                    </div>
+                </div>
+                <div style="width: 10%;" class="left">
+                    <div class="grid-header-column-large left">
+                        Ref No               
+                    </div>
+                    <div class="grid-header-seperator right" >
+                    </div>
+                </div>
+           
+
+                <div style="width: 8%;" class="left">
+                    <div class="grid-header-column-large left">
+                        Age
+                    </div>
+                    <div class="grid-header-seperator right" style='width: 0px;'>
+                    </div>
+                </div>
+
+                  <div style="width: 11%;" class="left">
+                    <div class="grid-header-column-large left">
+                        Unit
+                    </div>
+                    <div class="grid-header-seperator right" style='width: 0px;'>
+                    </div>
+                </div>
+
+                <div style="width: 16.5%;" class="left">
+                    <div class="grid-header-column-large left">
+                        Status
+                    </div>
+                    <div class="grid-header-seperator right" style='width: 0px;'>
+                    </div>
+                </div>
+
+               
+
+                <div style="width: 20%;" class="left">
+                    <div class="grid-header-column-large left">
+                        Booking Time
+                    </div>
+                    <div class="grid-header-seperator right" style='width: 0px;'>
+                    </div>
+                </div>
+              
+              
+
+                <div style="width: 7.5%;" class="left">
+                    <div class="grid-header-column-large left" style='width: 0px;'>
+                        ETA
+                    </div>
+                    <div class="grid-header-seperator right" style='width: 0px;'>
+                    </div>
+                    @*<div class="grid-header-seperator right">
+                </div>*@
+                </div>
+
+                  <div style="width: 21%;" class="left">
+                    <div class="grid-header-column-large left">
+                        Destination
+                    </div>
+                    
+                </div>
+
+            </div>
+
+            <div id="dvGeneratedHTMLO" class="msg_list">
+            </div>
+        </div>
+
+        <div id="dvTotalLabelO" class="grid-normal-column" style="float: right; width: 100%; text-align: center; font-size: 16px; color: #00267c; margin-top: 0px; font-weight: bold; line-height: 40px;"></div>
+
+        <div id="dvPagingO" style="padding-bottom: 80px; display: none;">
+            <div style="width: 30%; float: left; margin-top: 3px;">
+                <div class="grid-normal-column left">Page No </div>
+                <div class="left" style="margin-left: 20px;">
+                    <select id="ddlPageNumberO" class="dropdown_area" style="width: 100px;" onchange="LoadPagingData();"></select>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="dvConfirmPopup" style="display: none; width: 53%; min-height: 270px;">
+    <center>      
+    
+<div  class="AddEditDivClass info_area-pop" style="text-align: center; min-height: 200px; width:400px;">
+    <div class="grid-header-grey left">
+        <div class="search-header-column left">
+            Error Message
+        </div>
+    </div>
+    <div class="search-field-bg left" style="width: 30%;">
+        <div class="label-field" style="width: 100%; text-align: left; margin-left: 10px;">
+            <img width="90" height="132" src="~/Content/themes/base/images/alert.png">
+        </div>
+    </div>  
+    
+     <div class="search-field-bg left" style="width: 65%;">
+        <div class="label-field" style="width: 100%; text-align: left; margin-left: 10px;">
+            For Details Contact us:
+        </div>
+         <div class="label-field" style="width: 100%; text-align: left; margin-left: 10px;">
+            <span style="font-weight:bold">Conact Number: </span> 111-111-111
+        </div>
+         <div class="label-field" style="width: 100%; text-align: left; margin-left: 10px;">
+            <span style="font-weight:bold">Email: </span> abc@abc.com
+        </div>
+    </div>  
+  
+
+</div>
+        </center>
+</div>
+
+
+<audio id="audiotag1" src="~/siren.wav" preload="auto"></audio>
+ <div id="mapContainer" style="display:none;"> </div>
+
+<script type="text/javascript">
+
+    var StartRowID = 0;
+    var StartRowIDO = 0;
+    var ArrivalBoardData;
+    var isPageLoadFirstTime = 0;
+    var IsVehicle = false;
+    var TotalNumberOfPage = 0;
+    var TotalNumberOfPageO = 0;
+    var TotalNumberOfRecords = 0;
+    var TotalNumberOfRecordsO = 0;
+    var CurrentPage = 1;
+    var CurrentPageO = 1;
+    var PlaySound = true;
+    var redirectOutgoing = false;
+    var errorCounter = 0;
+    var timeOutCounter = 0;
+
+    function HideConfirmWindow() {
+        $("#fadedDiv").fadeOut("slow");
+        $("#dvConfirmPopup").fadeOut("slow");
+    }
+
+    function OpenConfirmWindow() {
+        ShowFadedDiv();
+        var dvConfirmPopup = document.getElementById("dvConfirmPopup");
+
+        if (IsIE7 == true) {
+            $("#dvConfirmPopup").css("position", "absolute");
+            $("#dvConfirmPopup").css("display", "block");
+        }
+        else {
+            dvConfirmPopup.style.zIndex = "201";
+            dvConfirmPopup.style.top = "200px";
+            dvConfirmPopup.style.height = "320px";
+            dvConfirmPopup.style.width = '53%';
+            dvConfirmPopup.style.position = 'fixed';
+            $("#dvConfirmPopup").fadeIn("slow");
+        }
+    }
+
+    function LoadAllArrivals(PageIndex, PageSize) {
+
+        clearTimeout(timeOutCounter);
+        timeOutCounter = 0;
+        LoadFacilityName();
+
+        PlaySound = true;
+
+        FacilityID = base64_encode(getParameterByName("FID"));
+
+        var FacilityID = base64_decode(getParameterByName("FID"));
+
+        var WardID = base64_decode(getParameterByName("WID"));
+
+        var baseUri = WebAPIURL + 'LoadFacilityArrivalBoard';
+
+        var jsonData = JSON.stringify([FacilityID, PageIndex, PageSize, WardID]);
+
+        $.ajax({
+            type: "Post",
+            url: baseUri,
+            data: jsonData,
+            contentType: 'application/json; charset=utf-8',
+
+            success: function (data) {
+                if (data != null) {
+
+                    NormalView();
+
+                    if (errorCounter > 0) {
+                        HideConfirmWindow();
+                        clearTimeout(errorCounter);
+                        errorCounter = 0;
+                    }
+
+                    $("#applogo").css("display", "block");
+                    $("#applogogrey").css("display", "none");
+                    //var dvGeneratedHTML = document.getElementById("dvGeneratedHTML");
+                    //dvGeneratedHTML.innerHTML = "";
+                    if (data.length > 0) {
+                        TotalNumberOfRecords = 0;
+                        var PlaySound = true;
+                        FillPagingDropdown1(data[0].TotalRecords);
+                        $("#ddlPageNumber option[value='" + PageIndex + "']").attr('selected', 'selected');
+
+                        ArrivalBoardData = data;
+                        StartRowID = data.length - 1;
+
+                        PopulateETA();
+
+                       // ArrivalBoardData = data;
+                       // StartRowID = data.length - 1;
+
+
+                        $(".grid-bg").css("margin-top", "0px");
+                        $(".grid-bg").css("margin-top", "0px");
+                       // AddNewRow();
+                        isPageLoadFirstTime = 1;
+                    }
+                    else {
+                        $("#dvTotalLabel").html("Page " + 0 + " of " + 0);
+                        $("#dvTotalRecordsLabel").html("Total Arrival(s): " + 0);
+                        setTimeout("LoadAllArrivals(" + 1 + "," + RecordsPerPage + ")", IntervalPages);
+                        LoadAllArrivalsO(CurrentPageO, RecordsPerPage);
+                        var dvGeneratedHTML = document.getElementById("dvGeneratedHTML");
+                        dvGeneratedHTML.innerHTML = "<div class='NoRecord'>No record found.</div>";
+                    }
+                }
+                else {
+                    $("#dvTotalLabel").html("Page " + 0 + " of " + 0);
+                    $("#dvTotalRecordsLabel").html("Total Arrival(s): " + 0);
+
+                    if (timeOutCounter == 0) {
+                        timeOutCounter = setTimeout("LoadAllArrivals(" + 1 + "," + RecordsPerPage + ")", IntervalPages);
+                    }
+
+                    LoadAllArrivalsO(CurrentPageO, RecordsPerPage);
+                    var dvGeneratedHTML = document.getElementById("dvGeneratedHTML");
+                    dvGeneratedHTML.innerHTML = "<div class='NoRecord'>No record found.</div>";
+                }
+            },
+            error: function (xhr) {
+
+              //  $("#applogo").css("display", "none");
+              //  $("#applogogrey").css("display", "block");
+              //  DisabledView();
+              //  setTimeout("LoadAllArrivals(" + 1 + "," + RecordsPerPage + ")", IntervalPages);
+                //alert("Something went wrong while loading the wallboards. Please contact system administrartor.");
+                //  alert(xhr.responseText);
+            }
+        });
+    }
+
+    function LoadAllArrivalsO(PageIndex, PageSize) {
+
+        PlaySound = true;
+
+        FacilityID = base64_encode(getParameterByName("FID"));
+
+        var FacilityID = base64_decode(getParameterByName("FID"));
+
+        var WardID = base64_decode(getParameterByName("WID"));
+
+        var baseUri = WebAPIURL + 'LoadFacilityArrivalBoardOutgoing';
+
+        var jsonData = JSON.stringify([FacilityID, PageIndex, PageSize, WardID]);
+
+        $.ajax({
+            type: "Post",
+            url: baseUri,
+            data: jsonData,
+            contentType: 'application/json; charset=utf-8',
+
+            success: function (data) {
+
+                if (data != null) {
+                    $("#applogo").css("display", "block");
+                    $("#applogogrey").css("display", "none");
+
+                    if (errorCounter > 0) {
+                        clearTimeout(errorCounter);
+                        errorCounter = 0;
+                        HideConfirmWindow();
+                    }
+
+                    TotalNumberOfRecordsO = 0;
+                    NormalView();
+                   
+                    //var dvGeneratedHTML = document.getElementById("dvGeneratedHTMLO");
+                    //dvGeneratedHTML.innerHTML = "";
+                    if (data.length > 0) {
+                        var PlaySound = true;
+                        FillPagingDropdown1(data[0].TotalRecords);
+
+                        FillPagingDropdown2(data[0].TotalRecords);
+
+                        $("#ddlPageNumber option[value='" + PageIndex + "']").attr('selected', 'selected');
+                        ArrivalBoardData = data;
+                        StartRowIDO = data.length - 1;
+
+                        PopulateETAO();
+
+                      //  ArrivalBoardData = data;
+                      //  StartRowIDO = data.length - 1;
+
+                        $(".grid-bg").css("margin-top", "0px");
+                        $(".grid-bg").css("margin-top", "0px");
+                      //  AddNewRowO();
+
+                       //  setTimeout("AddNewRowO();", 5000);
+
+                        isPageLoadFirstTime = 1;
+                    }
+                    else {
+                        $("#dvTotalLabelO").html("Page " + 0 + " of " + 0);
+                        $("#dvTotalRecordsLabelO").html("Total Departure(s): " + 0);
+                        var dvGeneratedHTML = document.getElementById("dvGeneratedHTMLO");
+                        dvGeneratedHTML.innerHTML = "<div class='NoRecord'>No record found.</div>";
+                    }
+                }
+                else {
+                    $("#dvTotalLabelO").html("Page " + 0 + " of " + 0);
+                    $("#dvTotalRecordsLabelO").html("Total Departure(s): " + 0);
+                    var dvGeneratedHTML = document.getElementById("dvGeneratedHTMLO");
+                    dvGeneratedHTML.innerHTML = "<div class='NoRecord'>No record found.</div>";
+                    $("#dvErrorMessage").css("display", "block");
+                }
+
+            },
+            error: function (xhr) {
+                DisabledView();
+                $("#applogo").css("display", "none");
+                $("#applogogrey").css("display", "block");
+                if (timeOutCounter == 0) {
+                    timeOutCounter = setTimeout("LoadAllArrivals(" + 1 + "," + RecordsPerPage + ")", IntervalPages);
+                }
+                //alert("Something went wrong while loading the wallboards. Please contact system administrartor.");
+                //alert(xhr.responseText);
+            }
+        });
+    }
+
+    function AddTrailingZero(i) {
+        if (i < 10) { i = "0" + i };  // add zero in front of numbers < 10
+        return i;
+    }
+
+    function CalculateEstimateTimeofArrival(PickLat, PickLong, DropLat, DropLong, callbackOuter)
+    {
+       
+        deCarta.Core.Configuration.clientName = Config.clientName;
+        deCarta.Core.Configuration.clientPassword = Config.clientPassword;
+
+        var controls = [];
+
+        //controls.push(new deCarta.UI.ZoomControlMobile({ position: 'bottomRight' }));
+        //controls.push(new deCarta.UI.PanControl({ position: 'bottomRight' }));
+        //controls.push(new deCarta.UI.LayerControl({ position: 'topRight' }));
+
+        window.map = new deCarta.Core.Map({
+            zoom: 9,
+            id: "mapContainer",
+            autoResize: true,
+            center: new deCarta.Core.Position(Config.position), //53.463104, -2.291422
+            controls: controls,
+            doubleTapZoom: false,
+            onReady: function (map) {
+                // showRoute(-34.084624, 18.461052, -33.977644, 18.494011, "ffasd", "fdsafsd");
+                //////  debugger;
+                //  var abc = CalculateDistanceAndETA(-33.97288, 18.61809, -33.89288, 18.59809);
+
+                //  CalculateETA(-34.084624, 18.461052, -33.977644, 18.494011, function (time) { alert(time) });
+
+
+                CalculateETA(PickLat, PickLong, DropLat, DropLong,
+                    function (time) {
+                        callbackOuter(time)
+                    });
+
+                // /-33.0208175,/ - , 
+
+
+                // CalculateDistanceAndETA(-34.084624, 18.461052, -33.977644, 18.494011);
+                //  alert(abc);
+
+                //showRoute(-33.97288, 18.61809, -33.89288, 18.59809, '', '');
+                //setFocus(-33.97288, 18.61809);
+                //  notifyMapLoad();
+
+                //setVehicle(-33.97288, 18.61809, '<table width="100%"><tr><td style="width:50%;" valign="top"><table width="100%"><tr><td style="width:40%;" align="left"><b>Reference No:</b></td><td style="width:60%;" align="left">20140526-0001</td></tr></table></td><td style="width:50%;" valign="top"><table width="100%"><tr><td style="width:50%;" align="left">Show Checklist</td><td style="width:50%;" align="left">Show Equipment</td></tr></table></td></tr></table>', 'Green', true);
+                //deCarta.Core.EventManager.listen('moveend', eventHandlerMoveEnd, window.map);
+                //onRightClickOfMap();
+            }
+        });
+
+    }
+
+    function LoadFacilityName() {
+        var FacilityID = base64_decode(getParameterByName("FID"));
+        var WardID = base64_decode(getParameterByName("WID"));
+        var baseUri = WebAPIURL + 'LoadFacilityNameByID';
+        var jsonData = JSON.stringify([FacilityID, WardID]);
+
+        $.ajax({
+            type: "Post",
+            url: baseUri,
+            data: jsonData,
+            contentType: 'application/json; charset=utf-8',
+
+            success: function (data) {
+                if (data != null) {
+
+                    if (errorCounter > 0) {
+                        HideConfirmWindow();
+                        clearTimeout(errorCounter);
+                        errorCounter = 0;
+                    }
+
+                    $("#applogo").css("display", "block");
+                    $("#applogogrey").css("display", "none");
+                    var data = data.split("|");
+                    document.getElementById("facilityName").innerHTML = data[0];
+
+                    document.getElementById("WardName").innerHTML = data[1];
+
+                    if (data[1] == "") {
+                        $("#facilityName").css("margin-top", "40px");
+                    }
+                    else {
+                        $("#facilityName").css("margin-top", "15px");
+                    }
+                }
+                else {
+                    $("#dvErrorMessage").css("display", "block");
+                }
+
+            },
+            error: function (xhr) {
+                DisabledView();
+                if (errorCounter == 0)
+                    {
+                    errorCounter = setTimeout("ShowMessage()", IntervalPages * 5);
+            }
+
+                if (timeOutCounter == 0) {
+                    timeOutCounter = setTimeout("LoadAllArrivals(" + 1 + "," + RecordsPerPage + ")", IntervalPages);
+                }
+            }
+        });
+
+    }
+
+    function PopulateETA()
+    {
+        if (StartRowID >= 0)
+        {
+            if ((ArrivalBoardData[StartRowID].PickLatitude != 0) && (ArrivalBoardData[StartRowID].PickLongitude != 0) && (ArrivalBoardData[StartRowID].DropLatitude != 0) && (ArrivalBoardData[StartRowID].DropLongitude != 0)) {
+                CalculateEstimateTimeofArrival(ArrivalBoardData[StartRowID].PickLatitude, ArrivalBoardData[StartRowID].PickLongitude, ArrivalBoardData[StartRowID].DropLatitude, ArrivalBoardData[StartRowID].DropLongitude, function (time) {
+                    if ((time != "") && (time != "00:00"))  {
+                        ArrivalBoardData[StartRowID].ETA = time;
+                        time = time.split(":");
+                        ArrivalBoardData[StartRowID].ETAHours = time[0];
+                        ArrivalBoardData[StartRowID].ETAMinutes = time[1];
+                    }
+                    StartRowID--;
+                    setTimeout("PopulateETA();", 200);
+                });
+            }
+            else {
+                StartRowID--;
+                setTimeout("PopulateETA();", 200);
+            }
+        }
+        else {
+
+            var FacilityID = base64_decode(getParameterByName("FID"));
+
+            var WardID = base64_decode(getParameterByName("WID"));
+
+            var baseUri = WebAPIURL + 'SortIncoming';
+
+            //var jsonObj = [];
+
+            //for (var i = 0; i < ArrivalBoardData.length; i++) {
+            //    jsonObj[i] =  ArrivalBoardData[i];
+            //}
+
+
+
+
+          //  var jsonData = JSON.stringify(ArrivalBoardData);
+
+            $.ajax({
+                dataType: "json",
+                url: baseUri,
+                method: "Post",
+                data: { '': ArrivalBoardData},
+
+                success: function (data) {
+
+                    if (data != null) {
+
+                        var dvGeneratedHTML = document.getElementById("dvGeneratedHTML");
+                        dvGeneratedHTML.innerHTML = "";
+                        if (data.length > 0) {
+                           
+                            ArrivalBoardData = data;
+                            StartRowID = data.length - 1;
+
+                    
+
+                            $(".grid-bg").css("margin-top", "0px");
+                            $(".grid-bg").css("margin-top", "0px");
+                            AddNewRow();
+
+                        }
+                        else {
+                            $("#dvTotalLabel").html("Page " + 0 + " of " + 0);
+                            $("#dvTotalRecordsLabel").html("Total Departure(s): " + 0);
+                            dvGeneratedHTML.innerHTML = "<div class='NoRecord'>No record found.</div>";
+                        }
+                    }
+                    else {
+                        $("#dvTotalLabel").html("Page " + 0 + " of " + 0);
+                        $("#dvTotalRecordsLabel").html("Total Departure(s): " + 0);
+                        dvGeneratedHTML.innerHTML = "<div class='NoRecord'>No record found.</div>";
+                        $("#dvErrorMessage").css("display", "block");
+                    }
+
+                },
+                error: function (xhr) {
+                    DisabledView();
+                    $("#applogo").css("display", "none");
+                    $("#applogogrey").css("display", "block");
+                    if (timeOutCounter == 0) {
+                        timeOutCounter = setTimeout("LoadAllArrivals(" + 1 + "," + RecordsPerPage + ")", IntervalPages);
+                    }
+                    //alert("Something went wrong while loading the wallboards. Please contact system administrartor.");
+                    //alert(xhr.responseText);
+                }
+            });
+
+
+
+
+            //var dvGeneratedHTML = document.getElementById("dvGeneratedHTML");
+            //dvGeneratedHTML.innerHTML = "";
+            //StartRowID = ArrivalBoardData.length - 1;
+            //AddNewRow();
+        }
+
+    }
+
+    function PopulateETAO()
+    {
+        if (StartRowIDO >= 0) {
+            if ((ArrivalBoardData[StartRowIDO].PickLatitude != 0) && (ArrivalBoardData[StartRowIDO].PickLongitude != 0) && (ArrivalBoardData[StartRowIDO].DropLatitude != 0) && (ArrivalBoardData[StartRowIDO].DropLongitude != 0)) {
+                CalculateEstimateTimeofArrival(ArrivalBoardData[StartRowIDO].PickLatitude, ArrivalBoardData[StartRowIDO].PickLongitude, ArrivalBoardData[StartRowIDO].DropLatitude, ArrivalBoardData[StartRowIDO].DropLongitude, function (time) {
+                    if ((time != "") && (time != "00:00")) {
+                        ArrivalBoardData[StartRowIDO].ETA = time;
+                        time = time.split(":");
+                        ArrivalBoardData[StartRowIDO].ETAHours = time[0];
+                        ArrivalBoardData[StartRowIDO].ETAMinutes = time[1];
+                    }
+                    StartRowIDO--;
+                    setTimeout("PopulateETAO();", 200);
+                });
+            }
+            else {
+                StartRowIDO--;
+                setTimeout("PopulateETAO();", 200);
+            }
+        }
+        else {
+
+
+            var FacilityID = base64_decode(getParameterByName("FID"));
+
+            var WardID = base64_decode(getParameterByName("WID"));
+
+            var baseUri = WebAPIURL + 'SortOutgoing';
+
+          //  var jsonData = ArrivalBoardData;
+
+            $.ajax({
+                
+                dataType: "json",
+                url: baseUri,
+                method: "Post",
+                data: { '': ArrivalBoardData },
+
+                success: function (data) {
+
+                    if (data != null) {
+
+                        var dvGeneratedHTML = document.getElementById("dvGeneratedHTMLO");
+                        dvGeneratedHTML.innerHTML = "";
+                        if (data.length > 0) {
+
+                            ArrivalBoardData = data;
+                            StartRowIDO = data.length - 1;
+
+
+
+                            $(".grid-bg").css("margin-top", "0px");
+                            $(".grid-bg").css("margin-top", "0px");
+                            AddNewRowO();
+
+                        }
+                        else {
+                            $("#dvTotalLabelO").html("Page " + 0 + " of " + 0);
+                            $("#dvTotalRecordsLabelO").html("Total Departure(s): " + 0);
+                            dvGeneratedHTML.innerHTML = "<div class='NoRecord'>No record found.</div>";
+                        }
+                    }
+                    else {
+                        $("#dvTotalLabelO").html("Page " + 0 + " of " + 0);
+                        $("#dvTotalRecordsLabelO").html("Total Departure(s): " + 0);
+                        dvGeneratedHTML.innerHTML = "<div class='NoRecord'>No record found.</div>";
+                        $("#dvErrorMessage").css("display", "block");
+                    }
+
+                },
+                error: function (xhr) {
+                    DisabledView();
+                    $("#applogo").css("display", "none");
+                    $("#applogogrey").css("display", "block");
+                    if (timeOutCounter == 0) {
+                        timeOutCounter = setTimeout("LoadAllArrivals(" + 1 + "," + RecordsPerPage + ")", IntervalPages);
+                    }
+                    //alert("Something went wrong while loading the wallboards. Please contact system administrartor.");
+                    //alert(xhr.responseText);
+                }
+            });
+
+
+
+            //var dvGeneratedHTML = document.getElementById("dvGeneratedHTMLO");
+            //dvGeneratedHTML.innerHTML = "";
+            //StartRowIDO = ArrivalBoardData.length - 1;
+            //AddNewRowO();
+        }
+       
+
+    }
+
+
+    function AddNewRow() {
+
+        if (StartRowID >= 0) {
+            $("#dvTotalLabel").css("display", "none");
+            $("#dvTotalRecordsLabel").css("display", "none");
+            var strHTML = "";
+            var dvGenID = "";
+
+            if (TotalNumberOfRecords == 0) {
+                TotalNumberOfRecords = ArrivalBoardData[0].TotalRecords;
+            }
+
+
+
+            var triageClass = "";
+            if (ArrivalBoardData[StartRowID].TriageColor == "Red")
+                triageClass = "red-gradiant";
+            else if (ArrivalBoardData[StartRowID].TriageColor == "Orange")
+                triageClass = "orange-gradiant";
+            else if (ArrivalBoardData[StartRowID].TriageColor == "Yellow")
+                triageClass = "yellow-gradiant";
+            else if (ArrivalBoardData[StartRowID].TriageColor == "Green")
+                triageClass = "green-gradiant";
+            else if (ArrivalBoardData[StartRowID].TriageColor == "Blue")
+                triageClass = "blue-gradiant";
+
+            if (ArrivalBoardData[StartRowID].Vehicle == null)
+            {
+                ArrivalBoardData[StartRowID].Vehicle = "";
+            }
+
+            if (ArrivalBoardData[StartRowID].Age == null) {
+                ArrivalBoardData[StartRowID].Age = "";
+            }
+
+
+            var RowClass = "normal-grid left";
+            var RowID = ArrivalBoardData[StartRowID].RouteVehicleID;
+            TotalRows = ArrivalBoardData.length;
+            dvGenID = "#dvRow" + StartRowID;
+            strHTML = strHTML + "<div id='dvRow" + RowID + "'  class='msg_head_Patient' >";
+            strHTML = strHTML + "<div class='" + RowClass + "' >";
+            var statusClass = "";
+            var dvtitle = "";
+
+            var data = ArrivalBoardData[StartRowID].ReferenceNo.split('-');
+
+
+            ArrivalBoardData[StartRowID].ReferenceNo = data[1];
+
+
+            if (ArrivalBoardData[StartRowID].ETA == null) {
+                ArrivalBoardData[StartRowID].ETA = "";
+            }
+
+
+            //if ((ArrivalBoardData[StartRowID].PickLatitude != 0) && (ArrivalBoardData[StartRowID].PickLongitude != 0) && (ArrivalBoardData[StartRowID].DropLatitude != 0) && (ArrivalBoardData[StartRowID].DropLongitude != 0))
+            //{
+            //    CalculateEstimateTimeofArrival(ArrivalBoardData[StartRowID].PickLatitude, ArrivalBoardData[StartRowID].PickLongitude, ArrivalBoardData[StartRowID].DropLatitude, ArrivalBoardData[StartRowID].DropLongitude, function (time) {
+            //        ArrivalBoardData[StartRowID].ETA = time
+            //    });
+            //}
+
+
+            if (ArrivalBoardData[StartRowID].Gender == 1)
+                strHTML = strHTML + "<div style='width:5%; min-width:35px; margin-top:5px;' class='left" + " " + triageClass + "'><div class='grid-normal-column left' style='min-width:35px; margin-left:0px; width:95%;' ><center><img id='View_" + ArrivalBoardData[StartRowID].$id + "' title='Male'  src='../Content/themes/base/images/male-24.png' class='grdImages' style='margin-left:2px;'   /></center></div><div class='grid-normal-seperator right' style='width: 0px;'></div></div>";
+            else if (ArrivalBoardData[StartRowID].Gender == 2)
+                strHTML = strHTML + "<div style='width:5%; min-width:35px; margin-top:5px;' class='left" + " " + triageClass + "'><div class='grid-normal-column left' style='min-width:35px; margin-left:0px; width:95%;' ><center><img id='View_" + ArrivalBoardData[StartRowID].$id + "' title='Female'  src='../Content/themes/base/images/female-24.png' class='grdImages' style='margin-left:2px;'   /></center></div><div class='grid-normal-seperator right' style='width: 0px;' ></div></div>";
+            else
+                strHTML = strHTML + "<div style='width:5%;' class='left" + " " + triageClass + "'><div class='grid-normal-column-large left' style='margin-left:15px;' title=''></div><div class='grid-normal-seperator right' style='width: 0px;'></div></div>"
+
+            //strHTML = strHTML + "<div style='width:5%; min-width:35px;' class='left'><div class='grid-normal-column left' style='min-width:35px; margin-left:0px; width:95%;' ><center><img id='View_" + ArrivalBoardData[StartRowID].$id + "' title='Female'  src='../Content/themes/base/images/patient-notavailable-24.png' class='grdImages' style='margin-left:2px;'   /></center></div><div class='grid-normal-seperator right'></div></div>";
+
+            strHTML = strHTML + "<div style='width:9%;' class='left'><div class='grid-normal-column-large left' style='text-shadow: none;' title='" + ArrivalBoardData[StartRowID].ReferenceNo + "'>" + CutBigWords(ArrivalBoardData[StartRowID].ReferenceNo, 15) + "</div><div class='grid-normal-seperator right' style='width: 0px;'></div></div>";
+
+            //strHTML = strHTML + "<div style='width:22%;' class='left'><div class='grid-normal-column-large left' style='text-shadow: none;' title='" + ArrivalBoardData[StartRowID].IncidentGroup + "'>" + CutBigWords(ArrivalBoardData[StartRowID].IncidentGroup, 35) + "</div><div class='grid-normal-seperator right' style='width: 0px;'></div></div>";
+
+            strHTML = strHTML + "<div style='width:38.5%;' class='left'><div class='grid-normal-column-large left' style='text-shadow: none;' title='" + ArrivalBoardData[StartRowID].IncidentType + "'>" + CutBigWords(ArrivalBoardData[StartRowID].IncidentType, 37) + "</div><div class='grid-normal-seperator right' style='width: 0px;'></div></div>";
+
+            strHTML = strHTML + "<div style='width:9%;' class='left'><div class='grid-normal-column-large left' style='text-shadow: none;' title='" + ArrivalBoardData[StartRowID].Age + "'>" + ArrivalBoardData[StartRowID].Age + "</div><div class='grid-normal-seperator right' style='width: 0px;'></div></div>";
+
+            strHTML = strHTML + "<div style='width:15%;' class='left'><div class='grid-normal-column-large left' style='text-shadow: none;'  title='" + ArrivalBoardData[StartRowID].Vehicle + "'>" + CutBigWords(ArrivalBoardData[StartRowID].Vehicle, 12) + "</div><div class='grid-normal-seperator right' style='width: 0px;'></div></div>";
+
+            strHTML = strHTML + "<div style='width:15%;' class='left'><div class='grid-normal-column-large left' style='text-shadow: none;' title='" + ArrivalBoardData[StartRowID].Status + "'>" + CutBigWords(ArrivalBoardData[StartRowID].Status, 8) + "</div><div class='grid-normal-seperator right' style='width: 0px;'></div></div>";
+
+            strHTML = strHTML + "<div style='width:3.5%;' class='left'><div class='grid-normal-column-large left' style='text-shadow: none;' title='" + ArrivalBoardData[StartRowID].ETA + "'>" + ArrivalBoardData[StartRowID].ETA + "</div></div>";
+
+
+            //play siren
+
+            if ((ArrivalBoardData[StartRowID].Priority == "P1") & (ArrivalBoardData[StartRowID].Status == "Departed A") & (PlaySound)) {
+              //  document.getElementById('audiotag1').play();
+                PlaySound = false;
+            }
+
+            //var triageClass = "";
+            //if (ArrivalBoardData[StartRowID].TriageColor == "Red")
+            //    triageClass = "red-gradiant";
+            //else if (ArrivalBoardData[StartRowID].TriageColor == "Orange")
+            //    triageClass = "orange-gradiant";
+            //else if (ArrivalBoardData[StartRowID].TriageColor == "Yellow")
+            //    triageClass = "yellow-gradiant";
+            //else if (ArrivalBoardData[StartRowID].TriageColor == "Green")
+            //    triageClass = "green-gradiant";
+            //else if (ArrivalBoardData[StartRowID].TriageColor == "Blue")
+            //    triageClass = "blue-gradiant";
+
+            //if (ArrivalBoardData[StartRowID].Priority == "P1")
+            //    strHTML = strHTML + "<div  style='width:12%; min-width:35px;' class='left " + triageClass + "'><div class='grid-normal-column left' style='min-width:35px; margin-left:0px; width:100%;' ><center><img id='View_" + ArrivalBoardData[StartRowID].$id + "' title='High Priority'  src='../Content/themes/base/images/p1.png' class='grdImages' style='margin-left:2px;'   /></center></div></div>";
+            //else
+            //    strHTML = strHTML + "<div  style='width:12%; min-width:35px;' class='left " + triageClass + "'><div class='grid-normal-column left' style='min-width:35px; margin-left:0px; width:100%;' ><center><img id='View_" + ArrivalBoardData[StartRowID].$id + "' title='Low Priority'  src='../Content/themes/base/images/p2.png' class='grdImages' style='margin-left:2px;'   /></center></div></div>";
+
+            strHTML = strHTML + "</div></div>";
+
+            var dvGeneratedHTML = document.getElementById("dvGeneratedHTML");
+
+            dvGeneratedHTML.innerHTML = strHTML + dvGeneratedHTML.innerHTML;
+
+            StartRowID--;
+
+            setTimeout("AddNewRow();", 1);
+
+        }
+        else {
+            $("#dvTotalLabel").css("display", "block");
+            $("#dvTotalRecordsLabel").css("display", "block");
+
+            $("#dvTotalLabel").html("Page " + CurrentPage + " of " + TotalNumberOfPage);
+            $("#dvTotalRecordsLabel").html("Total Arrival(s): " + TotalNumberOfRecords);
+            if (CurrentPage < TotalNumberOfPage) {
+                CurrentPage++;
+
+                if (timeOutCounter == 0) {
+                    timeOutCounter = setTimeout("LoadAllArrivals(" + CurrentPage + "," + RecordsPerPage + ")", IntervalPages);
+                }
+                LoadAllArrivalsO(CurrentPageO, RecordsPerPage);
+            }
+            else {
+                CurrentPage = 1;
+
+                if (timeOutCounter == 0) {
+                    timeOutCounter = setTimeout("LoadAllArrivals(" + 1 + "," + RecordsPerPage + ")", IntervalPages);
+                }
+                LoadAllArrivalsO(CurrentPageO, RecordsPerPage);
+                // setTimeout("nextPage()", IntervalPages);
+
+            }
+        }
+    }
+
+    function AddNewRowO() {
+
+        if (StartRowIDO >= 0) {
+            $("#dvTotalLabelO").css("display", "none");
+            $("#dvTotalRecordsLabelO").css("display", "none");
+
+            var strHTML = "";
+            var dvGenID = "";
+
+            if (TotalNumberOfRecordsO == 0) {
+                TotalNumberOfRecordsO = ArrivalBoardData[0].TotalRecords;
+            }
+            $("#dvTotalRecordsLabelO").html("Total Departure(s): " + TotalNumberOfRecordsO);
+
+            var triageClass = "";
+            if (ArrivalBoardData[StartRowIDO].TriageColor == "Red")
+                triageClass = "red-gradiant";
+            else if (ArrivalBoardData[StartRowIDO].TriageColor == "Orange")
+                triageClass = "orange-gradiant";
+            else if (ArrivalBoardData[StartRowIDO].TriageColor == "Yellow")
+                triageClass = "yellow-gradiant";
+            else if (ArrivalBoardData[StartRowIDO].TriageColor == "Green")
+                triageClass = "green-gradiant";
+            else if (ArrivalBoardData[StartRowIDO].TriageColor == "Blue")
+                triageClass = "blue-gradiant";
+
+
+            if (ArrivalBoardData[StartRowIDO].Vehicle == null) {
+                ArrivalBoardData[StartRowIDO].Vehicle = "";
+            }
+
+            if (ArrivalBoardData[StartRowIDO].Age == null) {
+                ArrivalBoardData[StartRowIDO].Age = "";
+            }
+
+
+            if (ArrivalBoardData[StartRowIDO].Status == "Case Submitted") {
+                ArrivalBoardData[StartRowIDO].Status = "Booked";
+            }
+
+            var RowClass = "normal-grid left";
+            var RowID = ArrivalBoardData[StartRowIDO].RouteVehicleID;
+            TotalRows = ArrivalBoardData.length;
+            dvGenID = "#dvRow" + StartRowIDO;
+            strHTML = strHTML + "<div id='dvRow" + RowID + "'  class='msg_head_Patient' >";
+            strHTML = strHTML + "<div class='" + RowClass + "' >";
+            var statusClass = "";
+            var dvtitle = "";
+
+
+            var data = ArrivalBoardData[StartRowIDO].ReferenceNo.split('-');
+
+
+            ArrivalBoardData[StartRowIDO].ReferenceNo = data[1];
+
+            if (ArrivalBoardData[StartRowIDO].ETA == null) {
+                ArrivalBoardData[StartRowIDO].ETA = "";
+            }
+            
+
+            //if (ArrivalBoardData[StartRowIDO].ETA != null) {
+
+            //    if ((ArrivalBoardData[StartRowIDO].ETA.Hours != null) & (ArrivalBoardData[StartRowIDO].ETA.Minutes != null)) {
+            //        ArrivalBoardData[StartRowIDO].ETA = ArrivalBoardData[StartRowIDO].ETA.Hours + ":" + ArrivalBoardData[StartRowIDO].ETA.Minutes;
+            //    }
+            //    else {
+            //        ArrivalBoardData[StartRowIDO].ETA = "";
+            //    }
+
+            //}
+            //else {
+            //    ArrivalBoardData[StartRowIDO].ETA = "";
+            //}
+
+            //if ((ArrivalBoardData[StartRowIDO].PickLatitude != 0) && (ArrivalBoardData[StartRowIDO].PickLongitude != 0) && (ArrivalBoardData[StartRowIDO].DropLatitude != 0) && (ArrivalBoardData[StartRowIDO].DropLongitude != 0)) {
+            //    CalculateEstimateTimeofArrival(ArrivalBoardData[StartRowIDO].PickLatitude, ArrivalBoardData[StartRowIDO].PickLongitude, ArrivalBoardData[StartRowIDO].DropLatitude, ArrivalBoardData[StartRowIDO].DropLongitude, function (time) {
+            //        ArrivalBoardData[StartRowIDO].ETA = time
+            //    });
+            //}
+
+
+
+            if (ArrivalBoardData[StartRowIDO].Gender == 1)
+                strHTML = strHTML + "<div style='width:6%; min-width:35px;' class='left" + " " + triageClass + "'><div class='grid-normal-column left' style='min-width:35px; margin-left:0px; width:95%;' ><center><img id='View_" + ArrivalBoardData[StartRowIDO].$id + "' title='Male'  src='../Content/themes/base/images/male-24.png' class='grdImages' style='margin-left:2px;'   /></center></div><div class='grid-normal-seperator right' style='width: 0px;'></div></div>";
+            else if (ArrivalBoardData[StartRowIDO].Gender == 2)
+                strHTML = strHTML + "<div style='width:6%; min-width:35px;' class='left" + " " + triageClass + "'><div class='grid-normal-column left' style='min-width:35px; margin-left:0px; width:95%;' ><center><img id='View_" + ArrivalBoardData[StartRowIDO].$id + "' title='Female'  src='../Content/themes/base/images/female-24.png' class='grdImages' style='margin-left:2px;'   /></center></div><div class='grid-normal-seperator right' style='width: 0px;' ></div></div>";
+            else
+                strHTML = strHTML + "<div style='width:6%; ' class='left" + " " + triageClass + "'><div class='grid-normal-column-large left' style='margin-left:15px;' title=''></div><div class='grid-normal-seperator right' style='width: 0px;'></div></div>"
+
+            strHTML = strHTML + "<div style='width:10%;' class='left'><div class='grid-normal-column-large left' style='text-shadow: none;' title='" + ArrivalBoardData[StartRowIDO].ReferenceNo + "'>" + CutBigWords(ArrivalBoardData[StartRowIDO].ReferenceNo, 15) + "</div><div class='grid-normal-seperator right' style='width: 0px;'></div></div>";
+
+            //strHTML = strHTML + "<div style='width:25%;' class='left'><div class='grid-normal-column-large left' style='text-shadow: none;' title='" + ArrivalBoardData[StartRowIDO].IncidentType + "'>" + CutBigWords(ArrivalBoardData[StartRowIDO].IncidentType, 18) + "</div><div class='grid-normal-seperator right' style='width: 0px;'></div></div>";
+
+            strHTML = strHTML + "<div style='width:8%;' class='left'><div class='grid-normal-column-large left' style='text-shadow: none;' title='" + ArrivalBoardData[StartRowIDO].Age + "'>" + ArrivalBoardData[StartRowIDO].Age + "</div><div class='grid-normal-seperator right' style='width: 0px;'></div></div>";
+
+            strHTML = strHTML + "<div style='width:11%;' class='left'><div class='grid-normal-column-large left' style='text-shadow: none;' title='" + ArrivalBoardData[StartRowIDO].Vehicle + "'>" + CutBigWords(ArrivalBoardData[StartRowIDO].Vehicle, 1) + "</div><div class='grid-normal-seperator right' style='width: 0px;'></div></div>";
+
+            strHTML = strHTML + "<div style='width:16.5%;' class='left'><div class='grid-normal-column-large left' style='text-shadow: none;'  title='" + ArrivalBoardData[StartRowIDO].Status + "'>" + CutBigWords(ArrivalBoardData[StartRowIDO].Status, 8) + "</div><div class='grid-normal-seperator right' style='width: 0px;'></div></div>";
+
+
+            strHTML = strHTML + "<div style='width:20%;' class='left'><div class='grid-normal-column-large left' style='text-shadow: none;' title='" + ArrivalBoardData[StartRowIDO].BookingTime + "'>" + ArrivalBoardData[StartRowIDO].BookingTime + "</div><div class='grid-normal-seperator right' style='width: 0px;'></div></div>";
+
+          
+            strHTML = strHTML + "<div style='width:7.5%;' class='left'><div class='grid-normal-column-large left' style='text-shadow: none;' title='" + ArrivalBoardData[StartRowIDO].ETA + "'>" + CutBigWords(ArrivalBoardData[StartRowIDO].ETA, 12) + "</div><div class='grid-normal-seperator right' style='width: 0px;'></div></div>";
+
+            strHTML = strHTML + "<div style='width:21%;' class='left'><div class='grid-normal-column-large left' style='text-shadow: none;' title='" + ArrivalBoardData[StartRowIDO].Destination + "'>" + CutBigWords(ArrivalBoardData[StartRowIDO].Destination, 10) + "</div></div>";
+
+            //play siren
+
+            if ((ArrivalBoardData[StartRowIDO].Priority == "P1") & (ArrivalBoardData[StartRowIDO].Status == "Departed A") & (PlaySound)) {
+               // document.getElementById('audiotag1').play();
+                PlaySound = false;
+            }
+
+            //var triageClass = "";
+            //if (ArrivalBoardData[StartRowID].TriageColor == "Red")
+            //    triageClass = "red-gradiant";
+            //else if (ArrivalBoardData[StartRowID].TriageColor == "Orange")
+            //    triageClass = "orange-gradiant";
+            //else if (ArrivalBoardData[StartRowID].TriageColor == "Yellow")
+            //    triageClass = "yellow-gradiant";
+            //else if (ArrivalBoardData[StartRowID].TriageColor == "Green")
+            //    triageClass = "green-gradiant";
+            //else if (ArrivalBoardData[StartRowID].TriageColor == "Blue")
+            //    triageClass = "blue-gradiant";
+
+            //if (ArrivalBoardData[StartRowID].Priority == "P1")
+            //    strHTML = strHTML + "<div  style='width:12%; min-width:35px;' class='left " + triageClass + "'><div class='grid-normal-column left' style='min-width:35px; margin-left:0px; width:100%;' ><center><img id='View_" + ArrivalBoardData[StartRowID].$id + "' title='High Priority'  src='../Content/themes/base/images/p1.png' class='grdImages' style='margin-left:2px;'   /></center></div></div>";
+            //else
+            //    strHTML = strHTML + "<div  style='width:12%; min-width:35px;' class='left " + triageClass + "'><div class='grid-normal-column left' style='min-width:35px; margin-left:0px; width:100%;' ><center><img id='View_" + ArrivalBoardData[StartRowID].$id + "' title='Low Priority'  src='../Content/themes/base/images/p2.png' class='grdImages' style='margin-left:2px;'   /></center></div></div>";
+
+            strHTML = strHTML + "</div></div>";
+
+            var dvGeneratedHTML = document.getElementById("dvGeneratedHTMLO");
+
+            dvGeneratedHTML.innerHTML = strHTML + dvGeneratedHTML.innerHTML;
+
+            StartRowIDO--;
+
+            setTimeout("AddNewRowO();", 1);
+
+        }
+        else {
+            $("#dvTotalLabelO").css("display", "block");
+            $("#dvTotalRecordsLabelO").css("display", "block");
+
+            $("#dvTotalLabelO").html("Page " + CurrentPageO + " of " + TotalNumberOfPageO);
+            $("#dvTotalRecordsLabelO").html("Total Departure(s): " + TotalNumberOfRecordsO);
+            if (CurrentPageO < TotalNumberOfPageO) {
+                CurrentPageO++;
+            }
+            else {
+                CurrentPageO = 1;
+            }
+        }
+    }
+
+    function DisabledView() {
+        $("#applogo").removeClass("wetern-cape-logo");
+        $("#applogo").addClass("wetern-cape-logo-grey");
+
+        $("#headerimage").removeClass("blue-header");
+        $("#headerimage").addClass("grey-header");
+
+        $("#facilityName").removeClass("logo-text");
+        $("#facilityName").addClass("logo-text-grey");
+
+        $("#WardName").removeClass("logo-text");
+        $("#WardName").addClass("logo-text-grey");
+
+
+        $("#txt").removeClass("logo-text");
+        $("#txt").addClass("logo-text-grey");
+
+        $("#spnFacilityName").removeClass("logo-text");
+        $("#spnFacilityName").addClass("logo-text-grey");
+
+        $("#gridheadingblue").removeClass("logo-text");
+        $("#gridheadingblue").addClass("logo-text-grey");
+
+        $("#gridheadinggreen").removeClass("logo-text");
+        $("#gridheadinggreen").addClass("logo-text-grey");
+
+        $("#gridheaderblue").removeClass("grid-header-blue");
+        $("#gridheaderblue").addClass("grid-header-grey");
+
+        $("#gridheadergreen").removeClass("grid-header-green");
+        $("#gridheadergreen").addClass("grid-header-grey");
+
+
+        $("#headerline").removeClass("blue-line");
+        $("#headerline").addClass("grey-line");
+
+        $("#dvTotalRecordsLabel").css("color", "#3e3e3e");
+
+        $("#dvTotalRecordsLabelO").css("color", "#3e3e3e");
+
+        $("#dvTotalLabel").css("color", "#3e3e3e");
+
+        $("#dvTotalLabelO").css("color", "#3e3e3e");
+    }
+
+    function NormalView() {
+        $("#applogo").removeClass("wetern-cape-logo-grey");
+        $("#applogo").addClass("wetern-cape-logo");
+
+        $("#headerimage").removeClass("grey-header");
+        $("#headerimage").addClass("blue-header");
+
+        $("#facilityName").removeClass("logo-text-grey");
+        $("#facilityName").addClass("logo-text");
+
+        $("#WardName").removeClass("logo-text-grey");
+        $("#WardName").addClass("logo-text");
+
+        $("#txt").removeClass("logo-text-grey");
+        $("#txt").addClass("logo-text");
+
+        $("#spnFacilityName").removeClass("logo-text-grey");
+        $("#spnFacilityName").addClass("logo-text");
+
+        $("#gridheadingblue").removeClass("logo-text-grey");
+        $("#gridheadingblue").addClass("logo-text");
+
+        $("#gridheadinggreen").removeClass("logo-text-grey");
+        $("#gridheadinggreen").addClass("logo-text");
+
+        $("#gridheaderblue").removeClass("grid-header-grey");
+        $("#gridheaderblue").addClass("grid-header-blue");
+
+        $("#gridheadergreen").removeClass("grid-header-grey");
+        $("#gridheadergreen").addClass("grid-header-green");
+
+
+        $("#headerline").removeClass("grey-line");
+        $("#headerline").addClass("blue-line");
+
+
+        $("#dvTotalRecordsLabel").css("color", "#00267c");
+
+        $("#dvTotalRecordsLabelO").css("color", "#00267c");
+
+        $("#dvTotalLabel").css("color", "#00267c");
+
+        $("#dvTotalLabelO").css("color", "#00267c");
+
+
+    }
+
+    function ShowMessage()
+    {
+        errorCounter = setTimeout("OpenConfirmWindow()", IntervalPages * 5);
+    }
+
+    $(document).ready(function () {
+       
+
+     //   var FacilityID = base64_decode(getParameterByName("FID"));
+
+     //   var WardID = base64_decode(getParameterByName("WID"));
+
+     //   var baseUri = WebAPIURL + 'SortIncoming';
+
+     //   var jsonObj = [];
+
+     //   //for (var i = 0; i < ArrivalBoardData.length; i++) {
+     //   //    jsonObj[i] = ArrivalBoardData[i];
+     //   //}
+
+     ////   var people = { name: "Kev", age: 32 };
+
+     //   var people = [];
+     //   people.push({ name: "Kev", age: 32 });
+     //   people.push({ name: "Ian", age: 31 });
+     //   people.push({ name: "Garry", age: 32 });
+
+
+     //  // var jsonData = JSON.stringify(ArrivalBoardData);
+
+     //   $.ajax({
+     //       dataType: "json",
+     //       url: baseUri,
+     //       method: "Post",
+     //       data: { '': people },
+     //    //   contentType: 'application/json; charset=utf-8',
+
+     //       success: function (data) {
+
+     //           if (data != null) {
+
+     //               var dvGeneratedHTML = document.getElementById("dvGeneratedHTML");
+     //               dvGeneratedHTML.innerHTML = "";
+     //               if (data.length > 0) {
+
+     //                   ArrivalBoardData = data;
+     //                   StartRowID = data.length - 1;
+
+
+
+     //                   $(".grid-bg").css("margin-top", "0px");
+     //                   $(".grid-bg").css("margin-top", "0px");
+     //                   AddNewRow();
+
+     //               }
+     //               else {
+     //                   $("#dvTotalLabel").html("Page " + 0 + " of " + 0);
+     //                   $("#dvTotalRecordsLabel").html("Total Departure(s): " + 0);
+     //                   dvGeneratedHTML.innerHTML = "<div class='NoRecord'>No record found.</div>";
+     //               }
+     //           }
+     //           else {
+     //               $("#dvTotalLabel").html("Page " + 0 + " of " + 0);
+     //               $("#dvTotalRecordsLabel").html("Total Departure(s): " + 0);
+     //               dvGeneratedHTML.innerHTML = "<div class='NoRecord'>No record found.</div>";
+     //               $("#dvErrorMessage").css("display", "block");
+     //           }
+
+     //       },
+     //       error: function (xhr) {
+     //           DisabledView();
+     //           $("#applogo").css("display", "none");
+     //           $("#applogogrey").css("display", "block");
+     //           if (timeOutCounter == 0) {
+     //               timeOutCounter = setTimeout("LoadAllArrivals(" + 1 + "," + RecordsPerPage + ")", IntervalPages);
+     //           }
+     //           //alert("Something went wrong while loading the wallboards. Please contact system administrartor.");
+     //           //alert(xhr.responseText);
+     //       }
+     //   });
+
+
+
+
+
+
+       
+        //CalculateEstimateTimeofArrival(-33.97288, 18.61809, -33.89288, 18.59809, function (time) {
+        //    alert(time)
+        //});
+
+       
+
+
+       // CalculateETA(-33.97288, 18.61809, -33.89288, 18.59809, function (time) { alert(time)});
+
+        //CalculateETA(-33.0208175, 18.241906, -34.2067, 21.5839, function (time) { alert(time) });
+        // DisabledView();
+        //$("#headerimage").removeClass("green-header");
+        //$("#headerimage").addClass("blue-header");
+
+        //$(".logo-text")[0].innerHTML = "Facility Arrivals/Departure Board";
+
+       LoadAllArrivals(1, RecordsPerPage);
+        // LoadAllArrivalsO(1, RecordsPerPage);
+    });
+
+    function nextPage() {
+
+        //     window.location.href = WebBaseURL + 'HospitalArrivalBoard/FacilityArrivalBoardOutgoing?FID=' + getParameterByName("FID");
+
+    }
+
+    function FillPagingDropdown1(TotalRows) {
+
+        TotalNumberOfPage = 0;
+
+        var pg = 0;
+        var PageSize = RecordsPerPage;
+
+        if (PageSize > TotalRows) {
+            TotalPage = 1;
+        }
+        else {
+            pg = TotalRows % PageSize;
+            TotalPage = TotalRows / PageSize;
+        }
+        if (pg > 0) {
+            TotalPage = TotalPage + 1;
+        }
+
+        for (i = 1; i <= TotalPage; i++) {
+
+            TotalNumberOfPage++;
+        }
+
+    }
+
+    function FillPagingDropdown2(TotalRows) {
+
+        TotalNumberOfPageO = 0;
+
+        var pg = 0;
+        var PageSize = RecordsPerPage;
+
+        if (PageSize > TotalRows) {
+            TotalPage = 1;
+        }
+        else {
+            pg = TotalRows % PageSize;
+            TotalPage = TotalRows / PageSize;
+        }
+        if (pg > 0) {
+            TotalPage = TotalPage + 1;
+        }
+
+        for (i = 1; i <= TotalPage; i++) {
+
+            TotalNumberOfPageO++;
+        }
+
+    }
+
+    //function ChangeFacility() {
+    //    window.location.href = WebBaseURL + "/HospitalArrivalBoard/ArrivalBoardFacility";
+    //}
+
+</script>
