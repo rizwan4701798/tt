@@ -1,0 +1,1651 @@
+@{
+    ViewBag.Title = "New Booking";
+}
+
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!-->
+<!--[if lt IE 7]
+    <!--[if lt IE 7]
+
+<html class="">
+
+<!--<![endif]-->
+<head>
+    @*<meta charset="utf-8">*@
+    @*  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">*@
+    <title></title>
+    @*<meta name="description" content="">*@
+    @*<meta name="viewport" content="width=device-width">*@
+
+
+
+    <script type="text/javascript">
+        CheckUserMenuAccess('8');
+    </script>
+
+    <script src="~/Scripts/ViewPopup/ViewBooking.js"></script>
+    <script src="~/Scripts/modernizr-2.6.2.min.js"></script>
+    <script src="~/Scripts/jquery-1.9.1.js"></script>
+    <script src="~/Scripts/jquery.cookie-1.3.1.js"></script>
+
+
+    @*<script src="~/Scripts/checkbox.js"></script>*@
+    <script src="~/Scripts/Common.js" type="text/javascript"></script>
+    <script src="~/Scripts/ControlsJS/AddBooking.js"></script>
+    <script type="text/javascript" src="//code.jquery.com/ui/1.10.4/jquery-ui.min.js"></script>
+    <script type="text/javascript" src="~/Scripts/NewTimePicker/jquery-ui-timepicker-addon.js"></script>
+    @*<script type="text/javascript" src="~/Scripts/Common/1.8.21-jquery-ui.min.js"></script>*@
+                @*    <script type="text/javascript" src="~/Scripts/NewTimePicker/jquery-ui-sliderAccess.js"></script>*@
+
+
+</head>
+<body>
+
+    <div class="content">
+
+        <link rel="stylesheet" media="all" type="text/css" href="../css/1.8.21-jquery-ui.css" />
+        <style>
+            .ui-timepicker-div .ui-widget-header {
+                margin-bottom: 8px;
+            }
+
+            .ui-timepicker-div dl {
+                text-align: left;
+            }
+
+                .ui-timepicker-div dl dt {
+                    float: left;
+                    clear: left;
+                    padding: 0 0 0 5px;
+                }
+
+                .ui-timepicker-div dl dd {
+                    margin: 0 10px 10px 40%;
+                }
+
+            .ui-timepicker-div td {
+                font-size: 90%;
+            }
+
+            .ui-tpicker-grid-label {
+                background: none;
+                border: none;
+                margin: 0;
+                padding: 0;
+            }
+
+            .ui-timepicker-rtl {
+                direction: rtl;
+            }
+
+                .ui-timepicker-rtl dl {
+                    text-align: right;
+                    padding: 0 5px 0 0;
+                }
+
+                    .ui-timepicker-rtl dl dt {
+                        float: right;
+                        clear: right;
+                    }
+
+                    .ui-timepicker-rtl dl dd {
+                        margin: 0 40% 10px 10px;
+                    }
+        </style>
+
+        <div id="dvConfirmPopup" style="display: none; width: 53%; min-height: 270px;">
+            <center>
+
+                <div class="AddEditDivClass" style="text-align: center; min-height: 150px; width:400px;">
+                    <div class="search-grid-bg left">
+                        <div class="search-header-column left">
+                            Reset Patient
+                        </div>
+                    </div>
+
+                    <div class="search-field-bg left" style="width: 100%;">
+                        <div class="label-field" style="width: 100%; text-align: left; margin-left: 10px;">
+                            Are you sure, you want to reset patient particulars?
+                        </div>
+                    </div>
+
+                    <div class="search-field-bg  " style="margin-right: 0px; width: 300px;">
+                        <input type="button" class="form-button clear right" title="No" value="No"
+                               onclick="HideConfirmWindow();" />
+                        <input type="button" class="form-button clear right" title="Yes" value="Yes"
+                               onclick="ResetPatient(); HideConfirmWindow();" />
+                    </div>
+
+                </div>
+            </center>
+        </div>
+       
+        @*<div id="dvTab3Discharge" style="clear: left; width: 98%; margin-left: 1%; border: 1px solid #DDDDDD; height: 200px; margin-top: 10px; margin-bottom: 10px; display:none; "><div class="grid-header left" style="border-radius: 0px; "><div style="width: 100%;" class="left">
+        <div class="grid-header-column left">Destination Details</div></div></div>
+        <div class="viewColumnWidth left"><div class="label-fieldView-Bold">Drop District:</div><div class="label-fieldView" id="dvTab2District">n/A</div></div><div class="viewColumnWidth left"><div class="label-fieldView-Bold">Drop Town:</div><div class="label-fieldView" id="dvTab2Town"></div></div><div class="viewColumnWidth left"><div class="label-fieldView-Bold">To Home or Hospital:</div><div class="label-fieldView" id="dvToHomeorHospital"></div></div><div class="viewColumnWidth left"><div class="label-fieldView-Bold">Facility</div><div class="label-fieldView" id="dvTab3Facility1"></div></div><div class="viewColumnWidth left"><div class="label-fieldView-Bold">Ward/Clinic:</div><div class="label-fieldView" id="dvWardDropPoint1"></div></div><div class="viewColumnWidth left"><div class="label-fieldView-Bold">Follow up:</div><div class="label-fieldView" id="dvFollowup"></div></div><div class="viewColumnWidth left"><div class="label-fieldView-Bold">Notes:</div><div class="label-fieldView" id="dvTab3Notes2"></div></div><div class="viewColumnWidth left"><div class="label-fieldView-Bold">Name:</div><div class="label-fieldView" id="dvTab3Name1"></div></div>
+        <div class="viewColumnWidth left"><div class="label-fieldView-Bold">Contact No:</div><div class="label-fieldView" id="dvTab3ContactNo1"></div></div>
+        <div style="display:none; font-size:15px; width: 100%;" class="viewColumnWidth left vpatientDropAddressDetails"><div class="label-fieldView-Bold" style="font-size:16px;">Patient Address Details:</div></div>
+            <div style="display:none;" class="viewColumnWidth left vpatientDropAddressDetails"><div class="label-fieldView-Bold">District:</div><div id="dvDropPatientDistrict" class="label-fieldView"></div></div>
+            <div style="display:none;" class="viewColumnWidth left vpatientDropAddressDetails"><div class="label-fieldView-Bold">Town:</div><div id="dvDropPatientTown" class="label-fieldView"></div></div>
+            <div style="display:none;" class="viewColumnWidth left vpatientDropAddressDetails"><div class="label-fieldView-Bold">Suburb:</div><div id="dvDropPatientSuburb" class="label-fieldView"></div></div>
+            <div style="display:none;" class="viewColumnWidth left vpatientDropAddressDetails"><div class="label-fieldView-Bold">Address Line 1:</div><div id="dvDropPatietAddressLine1" class="label-fieldView"></div></div>
+            <div style="display:none;" class="viewColumnWidth left vpatientDropAddressDetails"><div class="label-fieldView-Bold">Address Line 2:</div><div id="dvDropPatietAddressLine2" class="label-fieldView"></div></div>
+        </div>*@
+
+        <div id="dvCancelBookingPopup" style="display: none; width: 53%; min-height: 270px; top:0px;">
+                    <center>
+
+                        <div class="AddEditDivClass" style="text-align: center; min-height: 570px; width:1000px;">
+
+                            <div class="inner-box-header">
+                                <span class="inner-box-header-heading left">Select Patient</span>
+                                <div onclick="HidPatientsListWindow()" style="margin-right:10px; float:right; margin-top:5px; cursor:pointer; ">
+                                    <img src="../Content/themes/base/images/cancelCross.png">
+                                </div>
+                            </div>
+
+                            @*    <div id="dvPatientAJAX">
+                                    <center>
+                                        <img src="../Content/themes/base/images/AJAXloading.gif" width="48px" height="48px" />
+                                    </center>
+                                </div>*@
+
+                            <div style="overflow: no-display; min-height: 470px; width: 100% ; height: 400px;">
+
+                                <div class="grid-header left" style="border-radius: 0px;  " id="grdPatientsHeader">
+                                    <div style="width: 20%;" class="left">
+                                        <div class="grid-header-column left">
+                                            ID
+                                        </div>
+                                        <div class="grid-header-seperator right">
+                                        </div>
+                                    </div>
+                                    <div style="width: 20%;" class="left">
+                                        <div class="grid-header-column left">
+                                            Name
+                                        </div>
+                                        <div class="grid-header-seperator right">
+                                        </div>
+                                    </div>
+                                    <div style="width: 20%;" class="left">
+                                        <div class="grid-header-column left">
+                                            Surname
+                                        </div>
+                                        <div class="grid-header-seperator right">
+                                        </div>
+                                    </div>
+                                    <div style="width: 10%;" class="left">
+                                        <div class="grid-header-column left">
+                                            Age
+                                        </div>
+                                        <div class="grid-header-seperator right">
+                                        </div>
+                                    </div>
+
+                                    <div style="width: 30%;" class="left">
+                                        <div class="grid-header-column left">
+                                            Address
+                                        </div>
+                                        <div class="grid-header-seperator right">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div id="dvPatientsHTML" style="min-height: 470px; width: 100% ; height: 470px;">
+                                </div>
+                                <div>
+
+                                    <div id="dvPaging" style="padding-bottom: 0px; display:none;">
+                                        <div style="width:30%; float:left; margin-top:3px;">
+                                            <div class="grid-normal-column left">Page No </div>
+                                            <div class="left" style="margin-left: 20px;">
+                                                <select id="ddlPageNumber" class="dropdown_area" style="width: 100px;" onchange="LoadPagingData();"></select>
+                                            </div>
+                                        </div>
+                                        <div style="width: 50%;float: left;margin-left: 12%;margin-top: 5px;">
+                                            <img src="~/Content/themes/base/images/First.png" style="margin-top: 8px; margin-right: 10px; width: 24px; height: 24px; float: left; cursor: pointer;"
+                                                 id="imgFirst" title="First" onclick="FirstPage();" />
+                                            <img src="~/Content/themes/base/images/Previous.png" style="margin-top: 8px; margin-right: 10px; width: 24px; height: 24px; float: left; cursor: pointer;"
+                                                 id="imgPrevious" title="Previous" onclick="PreviousPage();" />
+                                            <img src="~/Content/themes/base/images/Next.png" style="margin-top: 8px; margin-right: 10px; width: 24px; height: 24px; float: left; cursor: pointer;"
+                                                 id="imgNext" title="Next" onclick="NextPage();" />
+                                            <img src="~/Content/themes/base/images/Last.png" style="margin-top: 8px; margin-right: 10px; width: 24px; height: 24px; float: left; cursor: pointer;"
+                                                 id="imgLast" title="Last" onclick="LastPage();" />
+
+                                        </div>
+                                    </div>
+
+
+                                </div>
+                            </div>
+
+                            <div class="search-field-bg clear right" style="margin-right: 37px; width: 300px; margin-top: 15px;">
+
+                                <input type="button" class="form-button clear right" title="Select" value="Select"
+                                       onclick="selectPatient();" />
+
+                            </div>
+
+                        </div>
+                    </center>
+                </div>
+
+        <div id="dvControlCentrePopup" style="display: none; width: 53%; min-height: 270px;">
+                    <center>
+
+                        <div class="AddEditDivClass" style="text-align: center; min-height: 135px; width:450px;">
+                            <div class="search-grid-bg left">
+                                <div class="search-header-column left">
+                                    Select Control Centre
+                                </div>
+                            </div>
+
+                            <div class="search-field-bg left" style="width: 95%;">
+                                <div class="label-field" style="width: 25%; margin-left:5%;">
+                                    Control Centre *:
+                                </div>
+                                <select class="dropdown_area" style="width: 65%;" id="ddlControlCenter" onchange=""></select>
+<span id="ReqControlCenter" class="fieldValidator paddingtop">*</span>
+                            </div>
+
+                            <div class="search-field-bg  " style="margin-right: 0px; width: 420px;">
+                                <input type="button" class="form-button clear right" style="margin-top: 10px;" title="Proceed" value="Proceed"
+                                       onclick="Proceed()    " />
+                                @*<input type="button" class="form-button clear right" title="Yes" value="Yes"
+                                    onclick="ResetPatient(); HideConfirmWindow();" />*@
+                            </div>
+
+                        </div>
+                    </center>
+                </div>
+
+
+
+        <div id="dvMovePatientPopup" style="display: none; width: 53%; min-height: 270px; top:0px;">
+            <center>
+
+                <div class="AddEditDivClass" style="text-align: center; min-height: 570px; width:500px;">
+
+                    <div class="inner-box-header">
+                        <span class="inner-box-header-heading left">Move Patient</span>
+                        <div onclick="HidePatientsMoveWindow()" style="margin-right:10px; float:right; margin-top:5px; cursor:pointer; ">
+                            <img src="../Content/themes/base/images/cancelCross.png">
+                        </div>
+                    </div>
+
+                    <div style="overflow: auto;  min-height: 470px; width: 100% ; height: 400px;">
+
+                        <div class="grid-header left" style="border-radius: 0px;  " id="grdPatientsHeader">
+                            <div style="width: 33%;" class="left">
+                                <div class="grid-header-column left">
+                                    Referrence No
+                                </div>
+                                <div class="grid-header-seperator right">
+                                </div>
+                            </div>
+                            <div style="width: 33%;" class="left">
+                                <div class="grid-header-column left">
+                                    Patient Name
+                                </div>
+                                <div class="grid-header-seperator right">
+                                </div>
+                            </div>
+                            <div style="width: 34%;" class="left">
+                                <div class="grid-header-column left">
+                                    Mobility
+                                </div>
+                                @*<div class="grid-header-seperator right">
+                                </div>*@
+                            </div>
+                        </div>
+                        <div id="dvPatientsMoveHTML" style="min-height: 470px; width: 100% ; height: 470px;">
+                        </div>
+                        <div>
+
+                            <div id="dvPaging" style="padding-bottom: 0px; display:none;">
+                                <div style="width:30%; float:left; margin-top:3px;">
+                                    <div class="grid-normal-column left">Page No </div>
+                                    <div class="left" style="margin-left: 20px;">
+                                        <select id="ddlPageNumber" class="dropdown_area" style="width: 100px;" onchange="LoadPagingData();"></select>
+                                    </div>
+                                </div>
+                                <div style="width: 50%;float: left;margin-left: 12%;margin-top: 5px;">
+                                    <img src="~/Content/themes/base/images/First.png" style="margin-top: 8px; margin-right: 10px; width: 24px; height: 24px; float: left; cursor: pointer;"
+                                         id="imgFirst" title="First" onclick="FirstPage();" />
+                                    <img src="~/Content/themes/base/images/Previous.png" style="margin-top: 8px; margin-right: 10px; width: 24px; height: 24px; float: left; cursor: pointer;"
+                                         id="imgPrevious" title="Previous" onclick="PreviousPage();" />
+                                    <img src="~/Content/themes/base/images/Next.png" style="margin-top: 8px; margin-right: 10px; width: 24px; height: 24px; float: left; cursor: pointer;"
+                                         id="imgNext" title="Next" onclick="NextPage();" />
+                                    <img src="~/Content/themes/base/images/Last.png" style="margin-top: 8px; margin-right: 10px; width: 24px; height: 24px; float: left; cursor: pointer;"
+                                         id="imgLast" title="Last" onclick="LastPage();" />
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="search-field-bg clear right" style="margin-right: 37px; width: 450px; margin-top: 15px;">
+                        <p style="width: 30%; display: inline-block; padding-top: 10px; " class="lable">Alternate Dates:  </p>
+                        <select style="width: 30%; " class="dropdown_area" id="ddlOtherAvailableDatesMove"> </select>
+                        <input type="button" style="margin-top: 10px; margin-left: 15px;" class="form-button  left" title="Move Patient" value="Move Patient" onclick="SaveMovePatient();" />
+                    </div>
+
+                </div>
+            </center>
+        </div>
+
+
+
+        <div align="center" style="width: 97%; ">
+                    <div>
+                        <div>
+                            <!-- Smart Wizard -->
+                            @*<div class="container-heading" style="padding-top: 0px; clear: left; margin-top:0px; margin-bottom: 20px; float:left; ">New Booking</div> <div class="right-alert-msg" style="display:block; clear:left;" id="dvAlertMessage1">asdasdasdasdasdasdasdasdasdasdasdasdasdasdasd asd as da sd as d asds</div>*@
+                            <div class="container-heading" id="addbookingheading" style="padding-bottom: 15px; padding-left: 10px; width:30%;">New Bookings</div>
+                            <div class="container-heading" id="editBookingRefNo" style="padding-bottom: 15px; padding-left: 10px;"></div>
+                            <div class="right-alert-msg" id="dvAlertMessage"></div>
+
+
+                            <div id="wizard" class="swMain" style="padding-left: 10px;">
+
+
+                                <div style="clear:left;" class="tab-empty-div">
+                                    <div id="tab-1" onclick="first()" style="display: none;" class="selectedtab">1. Collection Details</div>
+                                    <div id="tab-2" onclick="second()" style="display: none;" class="tab">2. Patient Particulars</div>
+                                    <div id="tab-3" onclick="third()" style="display: none;" class="tab">3. Destination Details</div>
+                                    <div id="tab-4" onclick="fourth()" style="display: none;" class="tab">4. Preview</div>
+                                </div>
+
+                                <div class="tab-blue-line"></div>
+                                <div id="step-2" style="clear: left; min-height:250px; display: none; border: 1px solid #0362AA; border-top: 5px solid #0362AA !Important;">
+                                    @*<div id="step-1" style="clear: left; border: 1px solid #0362AA; border-top: 5px solid #0362AA !Important;">*@
+                                    @*    <h2 class="StepTitle">Step 1 Content</h2>*@
+
+                                    <div style="margin-top: 0px; width: 100%;">
+
+                                        <div style="height: 20px; width: 100%;">
+
+                                        </div>
+
+
+
+                                        <div style="width: 50%; float: left; margin-bottom: 20px;" class="apptfields">
+                                            <div class="subHeading" style="width: 30%; float: left;">
+
+                                                <p class="lable" style="width: 100%;">  Collect From: </p>
+                                            </div>
+                                            <div class="dataText" style="width: 70%; float: left; ">
+                                                @* <select style="width: 96%; height: 25px;" class="dataText controlsWidth" id="ddlControlCenter" onchange="LoadSubUrbs()">
+                                                    </select>*@
+
+                                                <input style="display: inline; float:left; margin-top: 15px;" id="rbHomeAddress" type="radio" value="HomeAddress" name="Address" onclick="javascript: $('#wizard div#step-2').css('height', '550px'); document.getElementById('ddlFacility').setAttribute('disabled', 'true'); $('.HomeAddressFields').css('display', ''); $('#ddlFacility').removeClass('dropdown_area'); $('#ddlFacility').addClass('dropdown_area-disabled'); $('#lblWard').text('Collection Point: '); LoadWards();">
+                                                <span style="padding-top: 5px; margin-left: 5px; padding-top: 12px; float: left; color: #5A5A5A; font-size: 16px; font-family: Arial">Home </span>
+                                                <input style="display: inline; float: left; margin-left: 10px; margin-top: 15px;" id="rbHome" checked="checked" type="radio" value="Home" name="Address" onclick="javascript: $('#wizard div#step-2').css('height', '320px'); document.getElementById('ddlFacility').setAttribute('disabled', 'true'); $('#ddlFacility').removeClass('dropdown_area'); $('.HomeAddressFields').css('display', 'none'); $('#ddlFacility').addClass('dropdown_area-disabled'); $('#lblWard').text('Collection Point: '); LoadWards();">
+                                                <span style="padding-top: 5px; margin-left: 5px; float: left; padding-top: 12px; color: #5A5A5A; font-size: 16px; font-family: Arial; ">Collection Point </span>
+                                                <input style="display: inline; float: left; margin-left: 10px; margin-top: 15px;" id="rbFacility" type="radio" value="Facility" name="Address" disabled="disabled" onclick="javascript: $('#wizard div#step-2').css('height', '320px'); document.getElementById('ddlFacility').removeAttribute('disabled'); $('.HomeAddressFields').css('display', 'none'); $('#ddlFacility').removeClass('dropdown_area-disabled'); $('#ddlFacility').addClass('dropdown_area'); $('#lblWard').text('Ward/Clinic: '); LoadWards();">
+                                                <span style="color: #5A5A5A; margin-left: 5px; float: left; padding-top: 12px; font-size: 16px; font-family: Arial; ">Facility </span>
+
+
+                                                @* <select style="width: 95%; display: none;"  class="dropdown_area" id="ddlControlCenter" onchange="ShowAJAXDiv();  LoadControlCentreCities(); HideAJAXDivs(); ">
+                                                    </select> <img id="ILoaderControlCentre" style="display: none;" class="paddingtop" src="../Content/themes/base/images/dloader.gif">*@
+                                                @*<span id="ReqControlCenter" class="fieldValidator paddingtop">*</span>*@
+                                            </div>
+                                        </div>
+
+                                        <div style="width: 50%; float: left; margin-bottom: 20px;">
+                                            <div class="subHeading" style="width: 30%; float: left;">
+
+                                                <p class="lable" style="width: 100%;"> District: * </p>
+                                            </div>
+                                            <div class="dataText" style="width: 70%; float: left;">
+                                                <select class="dropdown_area" style=" width: 94.7%; display: none;" id="ddlTransferReason" onchange="">
+                                                    <option selected="selected" value="0">Select</option>
+                                                    <option value="1">Appointment</option>
+                                                    <option value="2">Discharge</option>
+                                                    <option value="3">IFT</option>
+                                                </select>
+
+                                                @*<select class="dropdown_area" style=" width: 94.7%; display: none;" id="ddlControlCentre" onchange="">
+                                                    </select>*@
+
+                                                <span id="ReqTranferReason" class="fieldValidator paddingtop">*</span>
+
+                                                <select style="width: 94%; " class="dropdown_area" id="ddlCollectionDistrict" onchange="LoadDistrictCities(1);"></select>
+                                                <img id="ILoaderDistrict" style="display: none;" class="paddingtop" src="../Content/themes/base/images/dloader.gif"> <span id="ReqCollectionDistrict" class="fieldValidator paddingtop">*</span>
+
+
+                                            </div>
+                                        </div>
+
+
+
+
+
+
+
+
+
+                                        <div style="width: 50%; float: left; margin-bottom: 20px;">
+                                            <div class="subHeading" style="float: left; width: 30%">
+                                                <p class="lable" style="width: 100%;">  Town: * </p>
+
+                                            </div>
+                                            <div class="dataText" style="float: left; width:70%;">
+
+                                                <select class="dropdown_area" style=" width: 94.7%;" id="ddlCollectionTown" onchange="document.getElementById('ddlFacility').options.length = 0; LoadWards(); "></select>
+                                                <img id="ILoaderTown" style="display: none;" class="paddingtop" src="../Content/themes/base/images/dloader.gif">
+                                                <span id="ReqCollectionTown" class="fieldValidator paddingtop">*</span>
+                                            </div>
+                                        </div>
+
+                                        <div style="width: 50%; float: left; margin-bottom: 20px;">
+
+
+                                            <div class="subHeading" style="float: left; width: 30%">
+
+                                                <p class="lable" style="width: 100%;">Facility: * </p>
+                                            </div>
+                                            <div class="dataText" style="float: left; width:70%;">
+
+                                                <select class="dropdown_area-disabled" style=" width: 94.7%;" id="ddlFacility" onchange="ShowAJAXDiv();  LoadWards();  HideAJAXDivs();"></select>
+                                                <img id="ILoaderFacility" style="display: none;" class="paddingtop" src="../Content/themes/base/images/dloader.gif">
+                                                <span id="ReqCollectionFacility" class="fieldValidator paddingtop">*</span>
+
+
+                                            </div>
+                                        </div>
+
+
+
+
+
+                                        <div style="width: 50%; float: left; margin-bottom: 20px;">
+                                            <div class="subHeading" style="float: left; width: 30%">
+
+                                                <p class="lable" id="lblWard" style="width: 100%;">Collection Point: </p>
+                                            </div>
+                                            <div class="dataText" style="float: left; width:70%;">
+                                                <select class="dropdown_area" style="width: 95%;" id="ddlwardcolectionpoint"></select>
+                                                <span id="ReqWardCollectionPoint" class="fieldValidator paddingtop">*</span>
+                                            </div>
+                                        </div>
+
+
+                                        <div style="width: 50%; float: left; margin-bottom: 20px;">
+                                            <div class="subHeading" style="float: left; width: 30%">
+                                                <p class="lable" style="width: 100%;">Patient Mobility: *</p>
+                                            </div>
+                                            <div class="dataText" style="float: left; width:70%;">
+                                                <select style="width: 94.7%;" class="dropdown_area" id="ddlPatientMobility"></select>
+                                                <span id="ReqPatientMobility" class="fieldValidator paddingtop">*</span>
+                                            </div>
+                                        </div>
+
+                                        <div style="width: 50%; float: left; margin-bottom: 20px;">
+                                            <div class="subHeading" style="float: left; width: 30%">
+                                                <p class="lable" style="width: 100%;">Escort: * </p>
+                                            </div>
+                                            <div class="dataText" style="float: left; width:70%;">
+                                                <select class="dropdown_area" style=" width: 95%;" id="ddlPatientEscort">
+                                                    @*<option selected="selected" value="0">Select</option>*@
+                                                    <option value="1">Yes</option>
+                                                    <option selected="selected" value="2">No</option>
+                                                </select>
+                                                <span id="ReqPatientEscort" class="fieldValidator paddingtop">*</span>
+                                            </div>
+
+                                        </div>
+
+                                        <div style="width: 50%; float: left; margin-bottom: 20px;">
+                                            <div class="subHeading" style="float: left; width: 30%">
+                                                <p class="lable" style="width: 100%;">Fit for Air Transport: * </p>
+                                            </div>
+                                            <div class="dataText" style="float: left; width:70%;">
+
+                                                <select style="width: 94.7%; " class="dropdown_area" id="ddlAirTransport">
+                                                    @*<option  value="0">Select</option>*@
+                                                    <option value="1">Yes</option>
+                                                    <option selected="selected" value="2">No</option>
+                                                </select>
+                                                <span id="ReqAirTransport" class="fieldValidator paddingtop">*</span>
+
+
+                                            </div>
+
+                                        </div>
+
+                                        <div style="width: 50%; float: left; margin-bottom: 20px;">
+                                            <div class="subHeading" style="float: left; width: 30%">
+                                                <p class="lable" style="width: 100%;">Transfer Date: * </p>
+                                            </div>
+                                            <div class="dataText" style="float: left; width:70%;">
+
+
+                                                <input type="text" style="width: 92%; display: inline-block;" class=" text-field" id="txtTransportDate">
+                                                <span id="ReqTransportDate" class="fieldValidator paddingtop">*</span>
+                                            </div>
+                                        </div>
+
+                                        <div style="width: 50%; float: left; margin-bottom: 20px;" class="ihtfields">
+                                            <div class="subHeading" style="float: left; width: 30%">
+
+                                                <p class="lable ihtfields" style="width: 100%;">Referring Person:  </p>
+                                            </div>
+                                            <div class="dataText" style="float: left; width:70%;">
+                                                <input type="text" style="width: 91.7%;" class="ihtfields  text-field" id="txtReferringPerson">
+
+                                            </div>
+                                        </div>
+
+
+
+
+
+                                        <div style="width: 50%; float: left; margin-bottom: 20px;" class="ihtfields">
+                                            <div class="subHeading" style="float: left; width: 30%">
+
+                                                <p class="lable ihtfields" style="width: 100%;">Contact No:</p>
+                                            </div>
+                                            <div class="dataText" style="float: left; width:70%;">
+
+                                                <input type="text" style="width: 92%;" class="ihtfields  text-field" id="txtContactNo">
+                                            </div>
+
+                                        </div>
+                                        <div style="width: 50%; float: left; margin-bottom: 20px;" class="ihtfields">
+                                            <div class="subHeading" style="float: left; width: 30%">
+                                                <p class="lable ihtfields" style="width: 100%;">Clinician:  </p>
+                                            </div>
+                                            <div class="dataText" style="float: left; width:70%;">
+                                                <input type="text" style="width: 93%;" class="ihtfields  text-field" id="txtClinician">
+
+                                            </div>
+                                        </div>
+
+
+
+
+
+
+
+                                        <div style="width: 100%; float: left;" class="HomeAddressFields">
+                                            <div class="subHeading">
+                                                <p class="lable" style="width: 100%; font-weight:bold;">Patient's Collection Address: </p>
+                                            </div>
+
+
+                                        </div>
+
+
+                                        <div style="height: 20px; width: 100%; float: left;" class="HomeAddressFields">
+
+
+                                        </div>
+
+
+
+
+
+                                        <div style="width: 100%; float: left;" class="HomeAddressFields">
+
+                                            <div style="width: 50%; float: left;">
+                                                <div class="subHeading" style="float: left; width: 30%">
+                                                    <p class="lable" style="width: 100%;">District: * </p>
+                                                </div>
+                                                <div class="dataText" style="float: left; width:70%;">
+                                                    <select class="dropdown_area" style=" width: 95%;" id="ddlHomeDistrict" onchange="LoadDistrictCities(2);"></select>
+                                                    <span id="ReqHomeDistrict" class="fieldValidator paddingtop">*</span>
+                                                </div>
+                                            </div>
+
+                                            <div style="width: 50%; float: left;">
+                                                <div class="subHeading" style="float: left; width: 30%">
+                                                    <p class="lable" style="width: 100%;">Town: * </p>
+                                                </div>
+                                                <div class="dataText" style="float: left; width:70%;">
+
+                                                    <select style="width: 94.7%; " class="dropdown_area" id="ddlHomeTown" onchange="LoadSubUrbs();"></select>
+                                                    <span id="ReqHomeTown" class="fieldValidator paddingtop">*</span>
+                                                </div>
+                                            </div>
+
+
+
+                                        </div>
+
+
+                                        <div style="height: 20px; width: 100%; float: left;" class="HomeAddressFields">
+
+
+                                        </div>
+
+                                        <div style="width: 100%; float: left;" class="HomeAddressFields">
+                                            <div style="width: 50%; float: left;">
+                                                <div class="subHeading" style="float: left; width: 30%">
+                                                    <p class="lable" style="width: 100%;">Suburb:  </p>
+                                                </div>
+                                                <div class="dataText" style="float: left; width:70%;">
+                                                    <select class="dropdown_area" style=" width: 95%;" id="ddlHomeSuburb"></select>
+                                                    <span id="ReqHomeSuburb" class="fieldValidator paddingtop">*</span>
+                                                </div>
+                                            </div>
+
+                                            <div style="width: 50%; float: left;">
+                                                <div class="subHeading" style="float: left; width: 30%">
+                                                    <p class="lable" style="width: 100%;">Address Line 1: * </p>
+                                                </div>
+                                                <div class="dataText" style="float: left; width:70%;">
+
+                                                    <input type="text" style="width: 92%;" class="  text-field" id="txtHomeAddressLine1">
+                                                    <span id="ReqHomeAddressLine1" class="fieldValidator paddingtop">*</span>
+                                                </div>
+                                            </div>
+                                        </div>
+
+
+                                        <div style="height: 20px; width: 100%; float: left;" class="HomeAddressFields">
+
+
+                                        </div>
+
+
+                                        <div style="width: 100%;" class="HomeAddressFields">
+                                            <div style="width: 50%; float: left;">
+                                                <div class="subHeading" style="float: left; width: 30%">
+                                                    <p class="lable" style="width: 100%;">Address Line 2:  </p>
+                                                </div>
+                                                <div class="dataText" style="float: left; width:70%;">
+                                                    <input type="text" style="width: 92%;" class="  text-field" id="txtHomeAddressLine2">
+                                                    <span id="ReqHomeAddressLine2" class="fieldValidator paddingtop">*</span>
+                                                </div>
+                                            </div>
+
+                                        </div>
+
+
+                                        <div style="height: 20px; width: 100%; float: left;" class="HomeAddressFields">
+
+
+                                        </div>
+
+
+
+
+
+
+                                    </div>
+                                </div>
+
+                                <div id="step-1" style="clear: left; border: 1px solid #0362AA; border-top: 5px solid #0362AA !Important;">
+
+                                    @* <h2 class="StepTitle">Step 2 Content</h2>	*@
+                                    <table width="100%" cellpadding="0" cellspacing="0" style="margin-top: 0px;">
+                                        <tbody>
+                                            <tr style="height: 20px;">
+                                                <td colspan="4"></td>
+                                            </tr>
+                                            <tr>
+                                                <td id="Td1" style="padding: 0px;">
+                                                    <table width="100%" cellpadding="0" cellspacing="0" style="margin-top: 0px;">
+                                                        <tbody>
+
+                                                            @*   <tr>
+                                                                    <td colspan="4">
+                                                                        &nbsp;
+                                                                    </td>
+                                                                </tr>*@
+                                                            <tr>
+                                                                <td class="subHeading" style="width: 17%;">
+                                                                    <p class="lable" style="width: 100%;">ID Number:  </p>
+                                                                </td>
+                                                                <td class="dataText" style="width: 33%;">
+                                                                    <input type="hidden" id="txtPatientID" value="" />
+                                                                    <input type="text" style="width: 77%;  display: inline-block;" maxlength="20" class=" text-field" id="txtIDNumber" onkeypress="return isNumberKey(event);">
+                                                                    <a style="cursor: pointer;" onclick="javascript:SearchPatient();" class="noDecoration">
+                                                                        <img width="29px" height="29px" src="../Images/Search.png" style="border: none; float: left; margin-top: 7px; " title="Search" alt="Search">
+                                                                    </a>
+                                                                    <a style="cursor: pointer;" id="resetPatient" onclick="OpenConfirmWindow()" class="noDecoration">
+                                                                        <img id="resetPatientImg" width="29px" height="29px" src="../Images/Reset.png" style="border: none; float: left;  margin-top:7px;" title="Reset" alt="Reset">
+                                                                    </a>
+                                                                    <span id="ReqIDNumber" class="fieldValidator paddingtop">*</span>
+                                                                </td>
+                                                                <td class="subHeading" style="width: 18%;">
+                                                                    <p class="lable" style="width: 100%;">PMI:   </p>
+                                                                </td>
+                                                                <td class="dataText" style="width: 32%;">
+                                                                    <input type="text" style="width: 93%;  display: inline-block;" maxlength="50" class="  text-field" id="txtPMI">
+                                                                    <span id="ReqPMI" class="fieldValidator paddingtop">*</span>
+                                                                </td>
+                                                            </tr>
+
+                                                            <tr style="height: 20px;">
+                                                                <td colspan="4"></td>
+                                                            </tr>
+                                                            @*<tr>
+                                                                    <td colspan="4">
+                                                                        &nbsp;
+                                                                    </td>
+                                                                </tr>*@
+                                                            <tr>
+                                                                <td class="subHeading">
+                                                                    <p class="lable" style="width: 100%;">Name: * </p>
+                                                                </td>
+                                                                <td class="dataText">
+                                                                    <input type="text" style="width: 93%;  display: inline-block;" maxlength="50" class=" text-field" id="txtPatientName" onkeypress="return validate(event)">
+                                                                    <span id="ReqName" class="fieldValidator paddingtop">*</span>
+                                                                </td>
+                                                                <td class="subHeading">
+                                                                    <p class="lable" style="width: 100%;">Surname: * </p>
+                                                                </td>
+                                                                <td class="dataText">
+                                                                    <input type="text" style="width: 93%;  display: inline-block;" maxlength="50" class=" text-field" id="txtSurname" onkeypress="return validate(event)">
+                                                                    <span id="ReqSurname" class="fieldValidator paddingtop">*</span>
+                                                                </td>
+                                                            </tr>
+
+                                                            <tr style="height: 20px;">
+                                                                <td colspan="4"></td>
+                                                            </tr>
+                                                            @*<tr>
+                                                                    <td colspan="4">
+                                                                        &nbsp;
+                                                                    </td>
+                                                                </tr>*@
+                                                            <tr>
+                                                                <td class="subHeading">
+                                                                    <p class="lable" style="width: 100%;">Gender: * </p>
+                                                                </td>
+                                                                <td class="dataText">
+                                                                    <select style="width: 96%;" class="dropdown_area" id="ddlGender">
+                                                                        <option selected="selected" value="0">Select</option>
+                                                                        <option value="1">Male</option>
+                                                                        <option value="2">Female</option>
+                                                                    </select>
+                                                                    <span id="ReqGender" class="fieldValidator paddingtop">*</span>
+                                                                </td>
+                                                                <td class="subHeading">
+                                                                    <p class="lable" style="width: 100%;">Age: * </p>
+                                                                </td>
+                                                                <td class="dataText">
+                                                                    <input type="text" maxlength="4" style="width: 50px;  display: inline; margin: 0px;  padding-right: 20px; margin-right: 20px; margin-top: 5px;" class=" text-field" id="txtAge" onkeypress="return isNumberKey(event)">
+
+                                                                    <select style=" width: 70%; display: inline;" class="dropdown_area" id="ddlAgeType">
+                                                                        <option value="0" selected="selected">Select</option>
+                                                                        <option value="1">Hour(s)</option>
+                                                                        <option value="2">Day(s)</option>
+                                                                        <option value="3">Month(s)</option>
+                                                                        <option value="4">Year(s)</option>
+                                                                    </select>
+
+                                                                    <span id="ReqAge" class="fieldValidator paddingtop">*</span>
+                                                                </td>
+                                                            </tr>
+                                                            <tr style="height: 20px;">
+                                                                <td colspan="4"></td>
+                                                            </tr>
+
+                                                            <tr>
+                                                                <td class="subHeading">
+                                                                    <p class="lable" style="width: 100%;">Phone No: * </p>
+                                                                </td>
+                                                                <td class="dataText">
+                                                                    @*<input type="text"  maxlength="3" style="width: 5Distr0px;  display: inline; margin: 0px;  padding-right: 20px; margin-right: 20px; margin-top: 5px;" class=" text-field" id="txtContactNoExt" onkeypress="return isNumberKey(event)">*@
+
+                                                                    <input type="text" maxlength="10" style="width: 93%;  display: inline;     margin-top: 5px;" class="text-field" id="txtPatientContactNo" onkeypress="return isNumberKey(event)">
+
+                                                                    @*<input type="text" maxlength="20" style="width: 93%;  display: inline-block;" class=" text-field" id="txtPatientContactNo">*@
+                                                                    <span id="ReqContactNo" class="fieldValidator paddingtop ">*</span>
+                                                                </td>
+                                                                <td class="subHeading">
+                                                                    <p class="lable" style="width: 100%;">Communicable Disease: * </p>
+                                                                </td>
+                                                                <td class="dataText">
+
+                                                                    <select style=" width: 96%; display: inline;" class="dropdown_area" id="ddlCommunicalbleDisease">
+                                                                        <option value="0" selected="selected">No</option>
+                                                                        <option value="1">Yes</option>
+
+
+
+                                                                    </select>
+                                                                    <span id="ReqCommunicableDisease" class="fieldValidator paddingtop">*</span>
+
+
+                                                                </td>
+                                                            </tr>
+
+                                                            <tr style="height: 20px;">
+                                                                <td colspan="4"></td>
+                                                            </tr>
+
+
+
+                                                            <tr>
+                                                                <td class="subHeading">
+                                                                    <p class="lable" style="width: 100%;">Next of Kin:  </p>
+                                                                </td>
+                                                                <td class="dataText">
+                                                                    <input type="text" maxlength="20" style="width: 93%;  display: inline-block;" class=" text-field" id="txtPatientNextToKin">
+                                                                    <span id="ReqNextToKin" class="fieldValidator paddingtop">*</span>
+                                                                </td>
+                                                                <td class="subHeading">
+                                                                    <p class="lable" style="width: 100%;">Next of Kin Contact No:  </p>
+                                                                </td>
+                                                                <td class="dataText">
+                                                                    <input type="text" maxlength="10" style="width: 93%;  display: inline; margin-left: 5px;    margin-top: 5px;" class="text-field" id="txtNextOfKinContactNo" onkeypress="return isNumberKey(event)">
+
+
+                                                                    @*<input type="text" maxlength="100" style="width: 93%;  display: inline-block;" class="  text-field" id="txtNextOfKinContactNo">*@
+                                                                    <span id="ReqNextOFKinContactNo" class="fieldValidator paddingtop">*</span>
+
+                                                                </td>
+                                                            </tr>
+
+                                                            <tr style="height: 20px;">
+                                                                <td colspan="4"></td>
+                                                            </tr>
+
+                                                            <tr>
+                                                                <td class="subHeading">
+                                                                    <p class="lable" style="width: 100%;">Address Line 1: * </p>
+                                                                </td>
+                                                                <td class="dataText">
+                                                                    <input type="text" maxlength="100" style="width: 93%;  display: inline-block;" class="  text-field" id="txtAddressLine1">
+                                                                    <span id="ReqAddressLine1" class="fieldValidator paddingtop">*</span>
+                                                                </td>
+                                                                <td class="subHeading">
+                                                                    <p class="lable" style="width: 100%;">Address Line 2: * </p>
+                                                                </td>
+                                                                <td class="dataText">
+                                                                    <input type="text" maxlength="100" style="width: 93%; display: inline-block;" class=" text-field" id="txtAddressLine2">
+                                                                    <span id="ReqAddressLine2" class="fieldValidator paddingtop">*</span>
+                                                                </td>
+                                                            </tr>
+
+                                                            <tr style="height: 20px;">
+                                                                <td colspan="4"></td>
+                                                            </tr>
+
+
+                                                            <tr>
+                                                                <td class="subHeading">
+                                                                    <p class="lable" style="width: 100%;">Town: * </p>
+                                                                </td>
+                                                                <td class="dataText">
+                                                                    <select style="width: 96%; " class="dropdown_area" id="ddlCity" onchange="LoadCitySuburbs()"></select>
+                                                                    <span id="ReqCity" class="fieldValidator paddingtop">*</span>
+                                                                </td>
+                                                                <td class="subHeading">
+                                                                    <p class="lable" style="width: 100%;">Suburb:  </p>
+                                                                </td>
+                                                                <td class="dataText">
+                                                                    <select style="width: 96%;" class="dropdown_area" id="ddlPatientSuburb"></select>
+                                                                    <span id="ReqSuburb" class="fieldValidator paddingtop">*</span>
+                                                                </td>
+                                                            </tr>
+
+
+                                                            <tr>
+                                                                <td colspan="4">
+                                                                    <div id="emergencyRow6" style="visibility: hidden; display: none;">
+                                                                        &nbsp;
+                                                                    </div>
+                                                                </td>
+                                                            </tr>
+                                                        </tbody>
+                                                    </table>
+                                                </td>
+                                            </tr>
+
+                                            <tr>
+                                                <td>
+                                                    &nbsp;
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+
+                                <div id="step-3" style="clear: left; display: none; border: 1px solid #0362AA; border-top: 5px solid #0362AA !Important;">
+                                    <div class="appoimentPanel">
+
+                                        <table width="100%" cellpadding="0" cellspacing="0" style="margin-top: 0px;">
+                                            <tbody>
+                                                <tr style="height: 20px;">
+                                                    <td colspan="4"></td>
+                                                </tr>
+                                                <tr>
+                                                    <td id="Td2" style="padding: 0px;">
+                                                        <table width="100%" cellpadding="0" cellspacing="0" style="margin-top: 0px;">
+                                                            <tbody>
+
+                                                                <tr>
+                                                                    <td class="subHeading" style="width: 17%;">
+                                                                        <p class="lable" style="width: 100%;">District: * </p>
+                                                                    </td>
+                                                                    <td class="dataText" style="width: 33%;">
+                                                                        <select style="width: 96%; " class="dropdown_area" id="ddlApptDropDistrict" onchange="LoadDistrictCities(3);"></select>
+                                                                        <span id="ReqApptDropDistrict" class="fieldValidator paddingtop">*</span>
+                                                                    </td>
+                                                                    <td class="subHeading" style="width: 17%;">
+                                                                        <p class="lable" style="width: 100%;">Town: * </p>
+                                                                    </td>
+                                                                    <td class="dataText" style="width: 33%;">
+                                                                        <select style="width: 96%; " class="dropdown_area" id="ddlApptDropTown" onchange="LoadDropFacility();"></select>
+                                                                        <span id="ReqApptDropTown" class="fieldValidator paddingtop">*</span>
+                                                                    </td>
+                                                                </tr>
+
+                                                                <tr style="height: 20px;">
+                                                                    <td colspan="4"></td>
+                                                                </tr>
+
+                                                                <tr>
+                                                                    <td class="subHeading" style="width: 17%;">
+                                                                        <p class="lable" style="width: 100%;">Facility: * </p>
+                                                                    </td>
+                                                                    <td class="dataText" style="width: 33%;">
+                                                                        <select style="width: 96%; " class="dropdown_area" id="ddlDropHospital" onchange=" ShowAJAXDiv();   LoadDropWards(); HideAJAXDivs();"></select>
+                                                                        <span id="ReqDropHospital" class="fieldValidator paddingtop">*</span>
+                                                                    </td>
+                                                                    <td class="subHeading" style="width: 18%;">
+                                                                        <p class="lable" style="width: 100%;">Ward/Clinic: </p>
+                                                                    </td>
+                                                                    <td class="dataText" style="width: 32%;">
+                                                                        <select class="dropdown_area" style="width: 96%;" id="ddlDropClinic" onchange="ShowAJAXDiv();  LoadAppointmentTimes();  HideAJAXDivs();"></select>
+                                                                        <span id="ReqDropClinic" class="fieldValidator paddingtop">*</span>
+                                                                    </td>
+                                                                </tr>
+
+                                                                <tr style="height: 20px;">
+                                                                    <td colspan="4"></td>
+                                                                </tr>
+
+                                                                <tr>
+                                                                    <td valign="top" class="subHeading" colspan="2">
+                                                                        <table style="width: 100%">
+                                                                            <tr>
+                                                                                <td class="subHeading" style="width: 33.5%;">
+                                                                                    <p class="lable" style="width: 100%; display: none; float: left;">Collection Time: * </p>
+                                                                                    <p class="lable" style="width: 100%; ">Appointment Reason: * </p>
+                                                                                </td>
+                                                                                <td class="dataText">
+                                                                                    <select style="width: 96%; display:none;  float: left; " class="dropdown_area" id="ddlCollectionTimeApp" onchange="checkAppBeforeHours()"></select>
+                                                                                    <select style="width: 96%; float: left;" class="dropdown_area" id="ddlAppointmentReason"></select>
+
+                                                                                    <span id="ReqAppointmentReason" class="fieldValidator paddingtop">*</span>
+
+                                                                                </td>
+                                                                            </tr>
+                                                                            <tr style="height: 20px;">
+                                                                                <td colspan="4"></td>
+                                                                            </tr>
+                                                                            <tr style="height: 15px;">
+                                                                                <td colspan="2">
+                                                                                    <input type="checkbox" class="chkEmergencyBooking" name="chkEmergencyBooking" id="chkEmergencyBooking" style="margin-top: 14px; padding-left: 20px;" value="brodcast">
+                                                                                    <span class="lable chkEmergencyBooking" style="padding-left: 0px; padding-top: 5px; width: 50%; "> Emergency Booking </span>
+                                                                                </td>
+                                                                            </tr>
+
+                                                                            <tr>
+                                                                                <td class="subHeading" style="width: 30%;"></td>
+                                                                                <td class="dataText"></td>
+                                                                            </tr>
+                                                                        </table>
+                                                                    </td>
+                                                                    @*   <td valign="top" class="dataText">
+                                                                            <select style="width: 96%;" class="dropdown_area" id="ddlAppointmentReason">
+                                                                            </select>
+                                                                            <span id="ReqAppointmentReason" class="fieldValidator paddingtop">*</span>
+                                                                        </td>*@
+                                                                    <td valign="top" class="subHeading">
+                                                                        <p class="lable" style="width: 100%; padding-top: 10px;">Notes: </p>
+                                                                    </td>
+                                                                    <td valign="" class="dataText" style="width: 73%;">
+                                                                        <textarea rows="5" maxlength="100" style="width: 95%; height:95%; display: inline-block;" class=" text-field" id="txtNotesAppoiment"></textarea>
+                                                                        <span id="ReqNotesAppoiment" class="fieldValidator paddingtop">*</span>
+                                                                    </td>
+                                                                </tr>
+
+                                                                <tr style="height: 20px;">
+                                                                    <td colspan="4"></td>
+                                                                </tr>
+
+                                                                <tr style="">
+                                                                    <td colspan="4">
+                                                                        <table style="width: 100%;  background-color:#d8d8d8; border-top: 1px solid #0362aa; ">
+                                                                            <tr>
+                                                                                <td class="subHeading" style="width: 15%; padding-top: 0px;">
+                                                                                    <p class="lable" style="width: 100%; font-weight:bold;">Requestor Name:  </p>
+                                                                                </td>
+                                                                                <td class="dataText" style="width: 35%; padding-top: 10px;">
+                                                                                    <input type="text" style="width: 93%; background-color: #d8d8d8; padding-bottom: 5px; margin-bottom: 5px; border: none;" class="loginName  text-field" id="txtLoginNameApp">
+                                                                                    <span id="ReqLoginNameApp" class="fieldValidator paddingtop">*</span>
+                                                                                </td>
+                                                                                <td class="subHeading" style="width: 15%; padding-top: 0px;">
+                                                                                    <p class="lable" style="width: 100%; display: inline-block; font-weight:bold;">Contact No:  </p>
+                                                                                </td>
+                                                                                <td class="dataText" style="width: 35%; padding-top: 10px">
+                                                                                    <input type="text" style="width: 95%; background-color: #d8d8d8; padding-bottom: 5px; margin-bottom: 5px; border: none;" class="loginContactNo  text-field" id="txtLoginContactNoApp">
+                                                                                    <span id="ReqLoginContactNoApp" class="fieldValidator paddingtop">*</span>
+                                                                                </td>
+                                                                            </tr>
+                                                                        </table>
+                                                                    </td>
+                                                                </tr>
+
+                                                                @*<tr>
+                                                                    <td class="subHeading">
+                                                                        <div id="emergencyRow1" style="visibility: hidden; display: none;">
+                                                                            Emergency
+                                                                        </div>
+                                                                    </td>
+                                                                    <td class="dataText">
+                                                                        <div id="emergencyRow2" style="visibility: hidden; display: none;">
+                                                                            <select style="width: 96%;" class="dataText controlsWidth" id="Select2">
+                                                                                <option selected="selected" value="0"></option>
+                                                                                <option value="1">Yes</option>
+                                                                                <option value="2">No</option>
+                                                                            </select>
+                                                                        </div>
+                                                                    </td>
+                                                                    <td colspan="2">
+                                                                        <div id="emergencyRow3" style="visibility: hidden; display: none;">
+                                                                            &nbsp;
+                                                                        </div>
+                                                                    </td>
+                                                                </tr>*@
+                                                                @*<tr>
+                                                                        <td colspan="4">
+                                                                            <div id="Div1" style="visibility: hidden; display: none;">
+                                                                                &nbsp;
+                                                                            </div>
+                                                                        </td>
+                                                                    </tr>*@
+                                                            </tbody>
+                                                        </table>
+                                                    </td>
+                                                </tr>
+
+                                                @* <tr>
+                                                        <td>&nbsp;
+                                                        </td>
+                                                    </tr>*@
+                                            </tbody>
+                                        </table>
+
+                                    </div>
+                                    <div class="dischangePanel">
+
+                                        <table width="100%" cellpadding="0" cellspacing="0" style="margin-top: 0px;">
+                                            <tbody>
+                                                <tr style="height: 20px;">
+                                                    <td colspan="4"></td>
+                                                </tr>
+                                                <tr>
+                                                    <td id="Td3" style="padding: 0px;">
+                                                        <table width="100%" cellpadding="0" cellspacing="0" style="margin-top: 0px;">
+                                                            <tbody>
+                                                                <tr>
+                                                                    <td class="subHeading" style="width: 17%;">
+                                                                        <p class="lable" style="width: 100%; padding-top: 5px;">Drop At: </p>
+                                                                       
+                                                                    </td>
+                                                                    <td class="dataText" style="width: 33%;padding-top: 5px;">
+                                                                        <input style="display: inline; margin-top: 0px;" id="rbHomeDropAddress" type="radio" value="HomeAddressDrop" name="AddressDrop" onclick="javascript: document.getElementById('ddlDropFacility').setAttribute('disabled', 'true'); $('.DropHomeAddressFields').css('display', ''); $('#ddlDropFacility').removeClass('dropdown_area'); $('#ddlDropFacility').addClass('dropdown_area-disabled'); $('#lblDropWard').text('Drop Point:'); LoadDropFacilityDischarge();">
+                                                                        <span style="padding-top: 5px; color: #5A5A5A; font-size: 16px; font-family: Arial;">Home </span>
+                                                                        <input style="display: inline; margin-top: 0px;" id="rbHomeDrop" type="radio" value="HomeDrop" checked="" name="AddressDrop" onclick="javascript: document.getElementById('ddlDropFacility').setAttribute('disabled', 'true'); $('#ddlDropFacility').removeClass('dropdown_area'); $('.DropHomeAddressFields').css('display', 'none'); $('#ddlDropFacility').addClass('dropdown_area-disabled'); $('#lblDropWard').text('Drop Point: '); LoadDropFacilityDischarge();">
+                                                                        <span style="padding-top: 5px; color: #5A5A5A; font-size: 16px; font-family: Arial;">Drop Point </span>
+                                                                        <input style="display: inline; margin-left: 10px; margin-top: 0px;" id="rbFacilityDrop" type="radio" value="FacilityDrop" name="AddressDrop" onclick="javascript: document.getElementById('ddlDropFacility').removeAttribute('disabled'); $('#ddlDropFacility').removeClass('dropdown_area-disabled'); $('.DropHomeAddressFields').css('display', 'none'); $('#ddlDropFacility').addClass('dropdown_area'); $('#lblDropWard').text('Ward/Clinic: '); LoadDropFacilityDischarge();">
+                                                                        <span style="color: #5A5A5A; font-size: 16px; font-family: Arial">Facility </span>
+                                                                    </td>
+                                                                    <td class="subHeading" style="width: 18%;">
+                                                                        <p class="lable" style="width: 100%;">District: * </p>
+                                                                       
+                                                                    </td>
+                                                                    <td class="dataText" style="display: inline;">
+
+
+                                                                        <select style="width: 96%;" class="dropdown_area" id="ddlDropDistrictDscg" onchange="LoadDistrictCities(4)"></select>
+                                                                        <span id="ReqDropDistrictDscg" class="fieldValidator paddingtop">*</span>
+
+
+                                                                       
+                                                                    </td>
+
+                                                                </tr>
+
+                                                                <tr style="height: 20px;">
+                                                                    <td colspan="4"></td>
+                                                                </tr>
+
+
+                                                                <tr>
+                                                                    <td valign="top" class="subHeading">
+                                                                      
+                                                                        <p class="lable" style="width: 100%;">Town: * </p>
+                                                                    </td>
+                                                                    <td valign="top" class="dataText" >
+                                                                        <select style="width: 96%;" class="dropdown_area" id="ddlDropTownDscg" onchange="LoadDropFacilityDischarge();"></select>
+                                                                        <span id="ReqDropTownDscg" class="fieldValidator paddingtop">*</span>
+                                                                    </td>
+                                                                    <td valign="top" class="subHeading">
+                                                                        <p class="lable" style="width: 100%; padding-top: 10px;">Facility: * </p>
+                                                                    </td>
+                                                                    <td valign="" class="dataText" style="width: 33%;">
+                                                                        <select style="width: 96%;" class="dropdown_area" id="ddlDropFacility" onchange="LoadDropWardsDischarge();"></select>
+                                                                        <span id="ReqDropFacility" class="fieldValidator paddingtop">*</span>
+                                                                    </td>
+                                                                </tr>
+
+                                                                <tr style="height: 20px;">
+                                                                    <td colspan="4"></td>
+                                                                </tr>
+
+                                                                <tr>
+                                                                    <td valign="top" class="subHeading">
+                                                                        <p class="lable" id="lblDropWard" style="width: 100%; padding-top: 10px;">Drop Point: </p>
+                                                                    </td>
+                                                                    <td valign="top" class="dataText">
+                                                                        <select style="width: 96%;" class="dropdown_area" id="ddlDropWard" onchange="ShowAJAXDiv();  LoadDischargeTimes();   HideAJAXDivs();"></select>
+                                                                        <span id="ReqDropWard" class="fieldValidator paddingtop">*</span>
+                                                                    </td>
+                                                                    <td valign="top" class="subHeading">
+                                                                        <p class="lable" style="width: 100%; padding-top: 10px;">Follow up: * </p>
+                                                                    </td>
+                                                                    <td valign="" class="dataText" style="width: 33%;">
+                                                                        <select style="width: 96%; " class="dropdown_area" id="ddlFollowup">
+                                                                            <option value="0" selected="selected">Select</option>
+                                                                            <option value="1">Yes</option>
+                                                                            <option value="2">No</option>
+                                                                        </select>
+                                                                        <span id="ReqFollowup" class="fieldValidator paddingtop">*</span>
+                                                                    </td>
+                                                                </tr>
+
+
+                                                                <tr style="height: 20px;">
+                                                                    <td colspan="4"></td>
+                                                                </tr>
+
+
+                                                                <tr>
+                                                                    <td valign="top" class="subHeading">
+                                                                        <p class="lable" style="width: 100%;">Notes: </p>
+                                                                    </td>
+                                                                    <td valign="top" class="dataText" colspan="3">
+                                                                        <textarea id="txtNotesDischage" maxlength="500" class=" text-field" style="width: 97%; height: 97%; display: inline-block;" rows="5"></textarea>
+                                                                        <span id="ReqNotesDischage" class="fieldValidator paddingtop">*</span>
+                                                                    </td>
+                                                                </tr>
+
+                                                                @*<tr style="height: 20px;">
+                                                                        <td colspan="4"></td>
+                                                                    </tr>*@
+
+                                                                @*<tr>
+
+                                                                        <td class="subHeading" style="width: 50%;" colspan="4">
+                                                                            <input type="checkbox" class="chkEmergencyBooking" name="chkBroadcast" id="chkEmergencyBookingDisc" style="margin-top: 14px; padding-left: 20px;" value="brodcast">
+                                                                            <span class="lable chkEmergencyBooking" style="padding-left: 0px; padding-top: 5px; color: red; width: 50%;"> Emergency Booking </span>
+                                                                        </td>
+
+                                                                    </tr>*@
+
+
+                                                                <tr style="height: 20px;">
+                                                                    <td colspan="4"></td>
+                                                                </tr>
+
+                                                                <tr class="DropHomeAddressFields">
+                                                                    <td valign="top" class="subHeading" colspan="4">
+                                                                        <p class="lable" id="lblPatientAddressDrop" style="width: 100%; padding-top: 10px;">Patient's Drop Address: </p>
+                                                                    </td>
+
+
+
+                                                                </tr>
+                                                                <tr style="height: 20px;" class="DropHomeAddressFields">
+                                                                    <td colspan="4"></td>
+                                                                </tr>
+
+                                                                <tr class="DropHomeAddressFields">
+                                                                    <td valign="top" class="subHeading">
+                                                                        <p class="lable" id="lblHome DropDropDistrict" style="width: 100%; padding-top: 10px;">District: * </p>
+                                                                    </td>
+                                                                    <td valign="top" class="dataText">
+                                                                        <select style="width: 96%;" class="dropdown_area" id="ddlHomeDropDistrictDscg" onchange="LoadDistrictCities(6)"></select>
+                                                                        <span id="ReqHomeDropDistrictDscg" class="fieldValidator paddingtop">*</span>
+                                                                    </td>
+                                                                    <td valign="top" class="subHeading">
+                                                                        <p class="lable" style="width: 100%; padding-top: 10px;">Town: * </p>
+                                                                    </td>
+                                                                    <td valign="" class="dataText" style="width: 33%;">
+                                                                        <select style="width: 96%; " class="dropdown_area" id="ddlHomeDropTownDscg" onchange="LoadDropSuburbs();">
+                                                                            <option value="0" selected="selected">Select</option>
+                                                                            <option value="1">Yes</option>
+                                                                            <option value="2">No</option>
+                                                                        </select>
+                                                                        <span id="ReqHomeDropTownDscg" class="fieldValidator paddingtop">*</span>
+                                                                    </td>
+                                                                </tr>
+                                                                <tr style="height: 20px;" class="DropHomeAddressFields">
+                                                                    <td colspan="4"></td>
+                                                                </tr>
+
+                                                                <tr class="DropHomeAddressFields">
+                                                                    <td valign="top" class="subHeading">
+                                                                        <p class="lable" id="lblHomeDropSuburb" style="width: 100%; padding-top: 10px;">Suburb:  </p>
+                                                                    </td>
+                                                                    <td valign="top" class="dataText">
+                                                                        <select style="width: 96%;" class="dropdown_area" id="ddlHomeDropSuburb" onchange="Sh"></select>
+                                                                        <span id="ReqHomeDropSuburb" class="fieldValidator paddingtop">*</span>
+                                                                    </td>
+                                                                    <td valign="top" class="subHeading">
+                                                                        <p class="lable" style="width: 100%; padding-top: 10px;">Address Line 1: * </p>
+                                                                    </td>
+                                                                    <td valign="" class="dataText" style="width: 33%;">
+                                                                        <input type="text" maxlength="10" style="width: 94%; display: inline-block;" class="  text-field" id="txtHomeDropAddressLine1">
+
+
+                                                                        <span id="ReqHomeDropAddressLine1" class="fieldValidator paddingtop">*</span>
+                                                                    </td>
+                                                                </tr>
+                                                                <tr style="height: 20px;" class="DropHomeAddressFields">
+                                                                    <td colspan="4"></td>
+                                                                </tr>
+
+                                                                <tr class="DropHomeAddressFields">
+                                                                    <td valign="top" class="subHeading">
+                                                                        <p class="lable" id="lblHomeAddressLine2" style="width: 100%; padding-top: 10px;">Address Line 2:  </p>
+                                                                    </td>
+                                                                    <td valign="top" class="dataText">
+                                                                        <input type="text" maxlength="10" style="width: 94%; display: inline-block;" class="  text-field" id="txtHomeDropAddressLine2">
+
+
+                                                                        <span id="ReqHomeDropAddressLine2" class="fieldValidator paddingtop">*</span>
+                                                                    </td>
+                                                                    <td valign="top" class="subHeading"></td>
+                                                                    <td valign="" class="dataText" style="width: 33%;"></td>
+                                                                </tr>
+
+
+                                                                <tr style="height: 20px;">
+                                                                    <td colspan="4"></td>
+                                                                </tr>
+
+
+
+
+
+                                                                @*          <tr>
+                                                                        <td class="subHeading">
+                                                                            <p class="lable" style="width: 100%;">Name:  </p>
+                                                                        </td>
+                                                                        <td class="dataText">
+                                                                            <input type="text" style="width: 93%; display: inline-block;" class="dataText controlsWidth hasDatepicker loginName  text-field" id="txtLoginnameDscrg">
+                                                                            <span id="ReqLoginnameDscrg" class="fieldValidator paddingtop">*</span>
+                                                                        </td>
+                                                                        <td class="subHeading">
+                                                                            <p class="lable" style="width: 100%; display: inline-block;">Contact No:  </p>
+                                                                        </td>
+                                                                        <td class="dataText">
+                                                                            <input type="text" style="width: 93%;" class="dataText controlsWidth hasDatepicker loginContactNo  text-field" id="txtContactNoDschrg">
+                                                                            <span id="ReqContactNoDschrg" class="fieldValidator paddingtop">*</span>
+                                                                        </td>
+                                                                    </tr>*@
+
+
+
+
+
+                                                                <tr>
+                                                                    <td colspan="4">
+                                                                        <table style="width: 100%;  border-top: 1px solid  #0362aa; background-color: #D8D8D8; padding-bottom: 5px;">
+                                                                            <tr>
+                                                                                <td class="subHeading" style="width: 15%; padding-top: 0px;">
+                                                                                    <p class="lable" style="width: 100%;  font-weight:bold;">Requestor Name:  </p>
+                                                                                </td>
+                                                                                <td class="dataText" style="width: 35%;padding-top: 10px;">
+                                                                                    <input type="text" style="width: 93%; background-color: #d8d8d8; padding-bottom: 5px; margin-bottom: 5px; border: none; display: inline-block;" class="dataText controlsWidth hasDatepicker loginName  text-field" id="txtLoginnameDscrg">
+                                                                                    <span id="ReqLoginnameDscrg" class="fieldValidator paddingtop">*</span>
+                                                                                </td>
+                                                                                <td class="subHeading" style="width: 15%; padding-top: 0px;">
+                                                                                    <p class="lable" style="width: 100%; display: inline-block; font-weight:bold;">Contact No:  </p>
+                                                                                </td>
+                                                                                <td class="dataText" style="width: 35%; padding-top:10px;">
+                                                                                    <input type="text" style="width: 93%; background-color: #d8d8d8; padding-bottom: 5px; margin-bottom: 5px; border: none;" class="dataText controlsWidth hasDatepicker loginContactNo  text-field" id="txtContactNoDschrg">
+                                                                                    <span id="ReqContactNoDschrg" class="fieldValidator paddingtop">*</span>
+                                                                                </td>
+                                                                            </tr>
+                                                                        </table>
+                                                                    </td>
+                                                                </tr>
+
+
+
+                                                                @*
+                                                                    <tr>
+                                                                        <td class="subHeading">
+                                                                            <div id="Div2" style="visibility: hidden; display: none;">
+                                                                                Emergency
+                                                                            </div>
+                                                                        </td>
+                                                                        <td class="dataText">
+                                                                            <div id="Div3" style="visibility: hidden; display: none;">
+                                                                                <select style="width: 96%;" class="dataText controlsWidth" id="Select3">
+                                                                                    <option selected="selected" value=""></option>
+                                                                                    <option value="">Yes</option>
+                                                                                    <option value="">No</option>
+                                                                                </select>
+                                                                            </div>
+                                                                        </td>
+                                                                        <td colspan="2">
+                                                                            <div id="Div4" style="visibility: hidden; display: none;">
+                                                                                &nbsp;
+                                                                            </div>
+                                                                        </td>
+                                                                    </tr>*@
+                                                                @*   <tr>
+                                                                        <td colspan="4">
+                                                                            <div id="Div5" style="visibility: hidden; display: none;">
+                                                                                &nbsp;
+                                                                            </div>
+                                                                        </td>
+                                                                    </tr>*@
+                                                            </tbody>
+                                                        </table>
+                                                    </td>
+                                                </tr>
+
+                                                @*<tr>
+                                                        <td>&nbsp;
+                                                        </td>
+                                                    </tr>*@
+                                            </tbody>
+                                        </table>
+
+                                    </div>
+                                    <div class="ihtPanel">
+
+                                        <table width="100%" cellpadding="0" cellspacing="0" style="margin-top: 0px;">
+                                            <tbody>
+                                                <tr style="height: 20px;">
+                                                    <td colspan="4"></td>
+                                                </tr>
+                                                <tr>
+                                                    <td id="Td4" style="padding: 0px;">
+                                                        <table width="100%" cellpadding="0" cellspacing="0" style="margin-top: 0px;">
+                                                            <tbody>
+                                                                <tr>
+                                                                    <td class="subHeading" style="width: 17%;">
+                                                                        <p class="lable" style="width: 100%;"> District: * </p>
+                                                                    </td>
+                                                                    <td class="dataText" style="width: 33%;">
+                                                                        <select style="width: 96%;" class="dropdown_area" id="ddlDropDistrictiht" onchange="LoadDistrictCities(5)"></select>
+                                                                        <span id="ReqDropDistrictiht" class="fieldValidator paddingtop">*</span>
+
+                                                                    <td class="subHeading" style="width: 18%;">
+                                                                        <p class="lable" style="width: 100%;">Town: * </p>
+                                                                    </td>
+                                                                    <td class="dataText" style="width: 32%;">
+                                                                        <select style="width: 96%;" class="dropdown_area" id="ddlDropTowniht" onchange="LoadFacilityIht();"></select>
+                                                                        <span id="ReqDropTowniht" class="fieldValidator paddingtop">*</span>
+                                                                    </td>
+                                                                </tr>
+
+                                                                <tr style="height: 20px;">
+                                                                    <td colspan="4"></td>
+                                                                </tr>
+
+
+                                                                <tr>
+                                                                    <td class="subHeading" style="width: 17%;">
+                                                                        <p class="lable" style="width: 100%;">Facility: * </p>
+                                                                        @*<p class="lable" style="width: 100%;">Ward/Clinic: * </p>*@
+                                                                    </td>
+                                                                    <td class="dataText" style="width: 33%;">
+                                                                        <select style="width: 96%;" class="dropdown_area" id="ddlFacilityiht" onchange="LoadWardsIht();"></select>
+                                                                        <span id="ReqFacilityiht" class="fieldValidator paddingtop">*</span>
+
+
+                                                                        @*  <select class="dropdown_area" style=" width: 96%;" id="ddlWardiht" onchange="ShowAJAXDiv(); LoadIFTTimes();  HideAJAXDivs();">
+                                                                            </select>
+                                                                            <span id="ReqWardiht" class="fieldValidator paddingtop">*</span>*@
+                                                                    </td>
+                                                                    <td class="subHeading" style="width: 18%;">
+                                                                        <p class="lable" style="width: 100%; display: none">Collection Time: * </p>
+                                                                        <p class="lable" style="width: 100%;">Ward/Clinic:  </p>
+                                                                    </td>
+                                                                    <td class="dataText" style="width: 32%;">
+                                                                        <select style="width: 96%; display: none; " class="dropdown_area" id="ddlCollectionTimeift"></select>
+                                                                        <select class="dropdown_area" style=" width: 96%;" id="ddlWardiht" onchange="ShowAJAXDiv(); LoadIFTTimes();  HideAJAXDivs();"></select>
+                                                                        <span id="ReqWardiht" class="fieldValidator paddingtop">*</span>
+
+                                                                    </td>
+                                                                </tr>
+
+                                                                <tr style="height: 20px;">
+                                                                    <td colspan="4"></td>
+                                                                </tr>
+
+                                                                <tr>
+                                                                    <td valign="top" class="subHeading">
+                                                                        <p class="lable" style="width: 100%; ">Receiving Person:  </p>
+                                                                    </td>
+                                                                    <td valign="top" class="dataText">
+                                                                        <input type="text" maxlength="10" style="width: 95%; display: inline-block;" class="  text-field" id="txtReceivingPerson">
+
+                                                                        <span id="ReqReceivingPersoniht" class="fieldValidator paddingtop">*</span>
+                                                                    </td>
+                                                                    <td valign="top" class="subHeading">
+                                                                        <p class="lable" style="width: 100%;">Receiving Clinician:  </p>
+                                                                    </td>
+                                                                    <td valign="" class="dataText" style="width: 33%;">
+                                                                        <input type="text" maxlength="10" style="width: 95%; display: inline-block;" class="  text-field" id="txtReceivingClinician">
+                                                                        <span id="ReqReceivingClinician" class="fieldValidator paddingtop">*</span>
+                                                                    </td>
+                                                                </tr>
+
+
+                                                                <tr style="height: 20px;">
+                                                                    <td colspan="4"></td>
+                                                                </tr>
+
+                                                                <tr>
+                                                                    <td valign="top" class="subHeading">
+                                                                        <p class="lable" style="width: 100%; ">Transfer Reason: * </p>
+                                                                    </td>
+                                                                    <td valign="top" class="dataText">
+                                                                        <select style="width: 96%; " class="dropdown_area" id="ddlAppointmentReasoniht"></select>
+                                                                        <span id="ReqAppointmentReasoniht" class="fieldValidator paddingtop">*</span>
+                                                                    </td>
+                                                                    <td valign="top" class="subHeading">
+                                                                        <p class="lable" style="width: 100%; ">Contact No: * </p>
+                                                                    </td>
+                                                                    <td valign="" class="dataText" style="width: 33%;">
+                                                                        <input type="text" maxlength="10" style="width: 94%; display: inline-block;" class="  text-field" id="txtReceivingContactNo">
+                                                                        <span id="ReqReceivingContactNo" class="fieldValidator paddingtop">*</span>
+                                                                    </td>
+                                                                </tr>
+
+                                                                <tr style="height: 20px;">
+                                                                    <td colspan="4"></td>
+                                                                </tr>
+
+                                                                <tr>
+                                                                    <td class="subHeading" valign="top">
+                                                                        <p class="lable" title="Medical Requirements" style="width: 100%;">Medical Requirements: </p>
+                                                                    </td>
+                                                                    <td class="dataText" style="overflow: hidden;" valign="top" id="tdMedicalRequirement">
+                                                                        <div id="dmedicalRequirement" style="overflow: auto; height: 120px; background-color: white; width: 95%;">
+                                                                        </div>
+                                                                    </td>
+                                                                    <td class="subHeading" valign="top">
+                                                                        <p class="lable" style="width: 100%;">Notes:  </p>
+                                                                    </td>
+                                                                    <td style="width: 33%;" class="dataText" valign="top">
+                                                                        <textarea maxlength="500" id="TextareaNotesIht" style="width: 95%; height: 95%; display: inline-block;" class="  text-field" rows="5"></textarea>
+                                                                        <span id="ReqTextareaNotesIht" class="fieldValidator paddingtop">*</span>
+                                                                    </td>
+                                                                    <td colspan="2">
+                                                                        &nbsp;
+                                                                    </td>
+
+                                                                </tr>
+
+                                                                <tr style="height: 20px;">
+                                                                    <td colspan="4"></td>
+                                                                </tr>
+
+
+
+                                                                @*  <tr>
+                                                                        <td class="subHeading">
+                                                                            <p class="lable" style="width: 100%;">Name:  </p>
+                                                                        </td>
+                                                                        <td class="dataText">
+                                                                            <input type="text" style="width: 93%;  display: inline-block;" class="loginName  text-field" id="txtLoginNameiht">
+                                                                            <span id="ReqLoginNameiht" class="fieldValidator paddingtop">*</span>
+                                                                        </td>
+                                                                        <td class="subHeading">
+                                                                            <p class="lable" style="width: 100%;">Contact No:  </p>
+                                                                        </td>
+                                                                        <td class="dataText">
+                                                                            <input type="text" style="width: 93%; display: inline-block;" class="  loginContactNo  text-field" id="txtContactNoiht">
+                                                                            <span id="ReqContactNoiht" class="fieldValidator paddingtop">*</span>
+                                                                        </td>
+                                                                    </tr>*@
+
+
+
+
+                                                                <tr style="">
+                                                                    <td colspan="5">
+                                                                        <table style="width: 100%; background-color: #d8d8d8;  border-top: 1px solid  #0362aa; padding-bottom: 5px;">
+                                                                            <tr>
+                                                                                <td class="subHeading" style="width: 15%;padding-top: 0px;">
+                                                                                    <p class="lable" style="width: 100%; font-weight:bold;">Requestor Name:  </p>
+                                                                                </td>
+                                                                                <td class="dataText" style="width: 35%; padding-top: 10px;">
+                                                                                    <input type="text" style="width: 93%;background-color: #d8d8d8; padding-bottom: 5px; margin-bottom: 5px; border: none;  " class="loginName  text-field" id="txtLoginNameiht">
+                                                                                </td>
+                                                                                <td class="subHeading" style="width: 15%; padding-top: 0px;">
+                                                                                    <p class="lable" style="width: 100%; font-weight:bold;">Contact No:  </p>
+                                                                                </td>
+                                                                                <td class="dataText" style="width: 35%; padding-top: 10px;">
+                                                                                    <input type="text" style="width: 93%; background-color: #d8d8d8; padding-bottom: 5px; margin-bottom: 5px; border: none; display: inline-block;" class="  loginContactNo  text-field" id="txtContactNoiht">
+
+                                                                                </td>
+                                                                            </tr>
+                                                                        </table>
+                                                                    </td>
+                                                                </tr>
+
+
+
+
+
+                                                                @*                <tr>
+                                                                        <td class="subHeading">
+                                                                            <div id="Div6" style="visibility: hidden; display: none;">
+                                                                                Emergency
+                                                                            </div>
+                                                                        </td>
+                                                                        <td class="dataText">
+                                                                            <div id="Div7" style="visibility: hidden; display: none;">
+                                                                                <select style="width: 96%;" class="dataText controlsWidth" id="Select4">
+                                                                                    <option selected="selected" value=""></option>
+                                                                                    <option value="">Yes</option>
+                                                                                    <option value="">No</option>
+                                                                                </select>
+                                                                            </div>
+                                                                        </td>
+                                                                        <td colspan="2">
+                                                                            <div id="Div8" style="visibility: hidden; display: none;">
+                                                                                &nbsp;
+                                                                            </div>
+                                                                        </td>
+                                                                    </tr>*@
+                                                                @*   <tr>
+                                                                        <td colspan="4">
+                                                                            <div id="Div9" style="visibility: hidden; display: none;">
+                                                                                &nbsp;
+                                                                            </div>
+                                                                        </td>
+                                                                    </tr>*@
+                                                            </tbody>
+                                                        </table>
+                                                    </td>
+                                                </tr>
+
+                                                @* <tr>
+                                                        <td>&nbsp;
+                                                        </td>
+                                                    </tr>*@
+                                            </tbody>
+                                        </table>
+
+                                    </div>
+                                </div>
+
+                                <div id="step-4" style="clear: left; display: none; background-color: #FFE3E3; height: 200px; border: 1px solid #0362AA; border-top: 5px solid #0362AA !Important;">
+                                    <div class="search-field-bg left" style="width: 100%; margin-top: 50px; text-align: center; padding-bottom: 10px;">
+                                        
+                                        <div id="noseatMessage" class="label-field" style="width: 100%; text-align: center">
+                                        </div>
+                                          
+                                    </div>
+
+                                    <div id="dOtherAvailableDates" style="width: 100%;float: left; display: none; text-align: center;  padding-bottom: 20px;">
+                                        <p class="lable" style="width: 15%; display: inline-block; padding-top: 10px; padding-left:32%">Alternate Available Dates:  </p>
+                                        <select style="width: 20%; " class="dropdown_area" id="ddlOtherAvailableDates"> </select>
+                                    </div>
+
+                                    <div id="btnErrorCase" style="width: 37%;float: left;text-align: center; padding-left: 40% ">
+                                        <input type="button" id="btnOtherDates" class="form-button" title="Search an alternate date" value="Search an alternate date" style="float:right;  height:30px; width: 250px;" onclick="ShowOtherAvailableDates()" />
+                                        <input type="button" id="btnCancelBooking" class="form-button" title="Cancel Booking" value="Cancel Booking" onclick="CancelBooking()" style="float: right; height: 30px; width: 150px;" />
+
+
+                                        <input type="button" id="btnMovePatient" class="form-button" title="Move another Patient" value="Move another Patient" style="float: right; margin-top: 10px; height: 30px; width: 250px;" onclick="MovePatient()" />
+                                        <input type="button" id="btnGoBack" class="form-button" title="Go Back" value="Go Back" style="float: right; margin-top: 10px; height: 30px; width: 250px;" onclick="GoBack()" />
+
+
+                                        <input type="button" id="btnErrorSave" onclick="SaveOtherDate()" class="form-button" title="Save Booking" value="Save Booking" style="float: right; display: none; height: 30px; width: 250px;" />
+                                        <input type="button" id="btnErrorViewBookings" class="form-button" title="Manage Bookings" value="View Bookings" onclick="window.location.href = '../Bookings/ManageBookings';" style="float: right; height: 30px; display: none; width: 250px;" />
+                                    </div>
+                                </div>
+
+
+                                <div id="step-5" style="clear: left; display: none; background-color: #DFECAE; height: 200px; border: 1px solid #0362AA; border-top: 5px solid #0362AA !Important;">
+                                    <div class="search-field-bg left" style="width: 100%; margin-top: 50px; text-align: center; margin-bottom: 10px;">
+                                        <div id="successMessage" class="label-field" style="width: 95%; text-align: center">
+                                        </div>
+                                    </div>
+
+                                    <div style="width: 100%;float: left;text-align: center; ">
+                                        <input type="button" class="form-button" title="New Booking" value="New Booking" style="float:none; height:30px; width: 150px;" onclick="window.location.href = '../Bookings/AddBooking?type=1';" />
+                                        <input type="button" class="form-button" title="Manage Bookings" value="View Bookings" onclick="window.location.href = '../Bookings/ManageBookings';" style="float:none; height:30px; width: 150px;" />
+                                        <input type="button" id="btnPrint" class="form-button" title="Print Booking" value="Print Booking" style="float:none; height:30px; width: 150px;" />
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- End SmartWizard Content -->
+                            <div class="button-empty-div">
+                                @*<div class="form-button">Next</div>*@
+
+                                <input type="hidden" name="btnHidden" value="0">
+                                <input type="button" id="btnPreview" class="form-button" title="Preview" value="Preview" style="display: none; margin-top:10px;" onclick="Preview()" />
+                                <input id="btnAdd" type="button" class="form-button" title="Save Booking" value="Save Booking" style="display: none; margin-top:10px; width:130px" onclick="Add()" />
+                                <input id="btnNext" type="button" class="form-button" title="Next" value="Next" onclick="next()" style="margin-top:10px;" />
+                                <input id="btnPrevious" type="button" class="form-button" title="Previous" value="Previous" onclick="previous()" style="display: none;margin-top:10px;" />
+                                <img id="ILoaderSave" style="display: none; float:right; padding-right:3px;" class="paddingtop" src="../Content/themes/base/images/dloader.gif">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+</body>
+@*</html>*@
