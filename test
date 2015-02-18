@@ -1,0 +1,32 @@
+
+10   Enable caching for views and third party api calls in whole application where required.
+
+7 Investigate the whole website code to remove redundencies and inefficiancies.
+
+5 Integrating performace tracknig into application.
+
+3 removing general http modules if used or optimizing them if necessary
+
+3 combining scripts and other resources for fast loading.
+
+4 Moving some server side code to client side for better performence.
+
+1 Deploying production code in release mode
+
+2 Optimizing URL generation
+
+2 Implementing http compression
+
+3 fine tuning sql quesries for better performance
+
+
+10 reproducing the issue 
+
+10 hours for troubleshooting the issue
+
+
+20 for creating adming panel
+
+10 appying changes in checkout page
+
+10 for testing this feature in real scenario 
